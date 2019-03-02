@@ -860,7 +860,7 @@ include $(BUILD_STATIC_LIBRARY)
 # (not: inside deltachat-android)
 #
 # you can then cross-compile rpgp to android using
-# > cross build --release --target armv7-linux-androideabi -p pgp-ffi
+# > cross build --release --target armv7-linux-androideabi -p pgp-ffi --features nightly
 #
 # TODO: x86 and other processor targets are still missing, automation, -droid script
 
