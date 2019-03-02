@@ -856,10 +856,18 @@ include $(BUILD_STATIC_LIBRARY)
 # rpgp
 ################################################################################
 
+# rpgp must be cloned to the same directory where deltachat-android is
+# (not: inside deltachat-android)
+#
+# you can then cross-compile rpgp to android using
+# > cross build --release --target armv7-linux-androideabi -p pgp-ffi
+#
+# TODO: x86 and other processor targets are still missing, automation, -droid script
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := librpgp
-LOCAL_SRC_FILES := /home/bpetersen/projects/rpgp/target/armv7-linux-androideabi/release/libpgp_ffi.a
+LOCAL_SRC_FILES := ../../rpgp/target/armv7-linux-androideabi/release/libpgp_ffi.a
 
 include $(PREBUILT_STATIC_LIBRARY)
 
@@ -887,7 +895,7 @@ LOCAL_CFLAGS 	:= -w -Os -DNULL=0 -DSOCKLEN_T=socklen_t -DLOCALE_NOT_USED -D_LARG
 LOCAL_CFLAGS 	+= -Drestrict='' -D__EMX__ -DOPUS_BUILD -DFIXED_POINT -DUSE_ALLOCA -DHAVE_LRINT -DHAVE_LRINTF -fno-math-errno -std=c99
 LOCAL_CFLAGS 	+= -DANDROID_NDK -DDISABLE_IMPORTGL -fno-strict-aliasing -fprefetch-loop-arrays -DAVOID_TABLES -DANDROID_TILE_BASED_DECODE -DANDROID_ARMV6_IDCT -ffast-math -D__STDC_CONSTANT_MACROS
 LOCAL_CFLAGS    += -DDC_USE_RPGP
-LOCAL_C_INCLUDES += /home/bpetersen/projects/rpgp/pgp-ffi/
+LOCAL_C_INCLUDES += $(JNI_DIR)/../../rpgp/pgp-ffi/
 
 LOCAL_SRC_FILES := \
 utils/org_thoughtcrime_securesms_util_FileUtils.cpp \
