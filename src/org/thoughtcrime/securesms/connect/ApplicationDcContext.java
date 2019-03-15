@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.TrafficStats;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -708,6 +709,10 @@ public class ApplicationDcContext extends DcContext {
         }
         return stringToData(s);
 
+      case 666:
+        logTraffic(dataToString(data1));
+        return 0;
+
       default: {
         final Object data1obj = data1IsString(event) ? dataToString(data1) : data1;
         final Object data2obj = data2IsString(event) ? dataToString(data2) : data2;
@@ -718,5 +723,27 @@ public class ApplicationDcContext extends DcContext {
       break;
     }
     return 0;
+  }
+
+  static final private Object trafficCritical = new Object();
+  static private long lastRxBytes = 0;
+  static private long lastTxBytes = 0;
+  public void logTraffic (String scope)
+  {
+    try {
+      synchronized (trafficCritical) {
+        int uid = context.getApplicationContext().getPackageManager().getApplicationInfo(context.getPackageName(), 0).uid;
+        long rxBytes = TrafficStats.getUidRxBytes(uid);
+        long txBytes = TrafficStats.getUidTxBytes(uid);
+        Log.i("DeltaChat", String.format("Traffic@%s: Received: %d (+%d), Transmitted %d (+%d)",
+            scope==null? "app" : scope,
+            rxBytes, rxBytes - lastRxBytes,
+            txBytes, txBytes - lastTxBytes));
+        lastRxBytes = rxBytes;
+        lastTxBytes = txBytes;
+      }
+    } catch (Exception e) {
+
+    }
   }
 }

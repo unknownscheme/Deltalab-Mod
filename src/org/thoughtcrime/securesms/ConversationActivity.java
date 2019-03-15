@@ -546,6 +546,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleAddAttachment() {
+    dcContext.logTraffic("reset");
     if (attachmentTypeSelector == null) {
       attachmentTypeSelector = new AttachmentTypeSelector(this, getSupportLoaderManager(), new AttachmentTypeListener());
     }
