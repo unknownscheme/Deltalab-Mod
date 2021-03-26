@@ -1,13 +1,14 @@
 package org.thoughtcrime.securesms;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.b44t.messenger.DcChat;
 import com.b44t.messenger.DcChatlist;
@@ -30,17 +31,7 @@ import java.util.Set;
 public class ProfileSettingsAdapter extends RecyclerView.Adapter
                                     implements StickyHeaderAdapter<ProfileSettingsAdapter.HeaderViewHolder>
 {
-  public static final int SETTING_CONTACT_ADDR = 110;
   public static final int SETTING_NEW_CHAT = 120;
-  public static final int SETTING_CONTACT_NAME = 130;
-  public static final int SETTING_ENCRYPTION = 140;
-  public static final int SETTING_BLOCK_CONTACT = 150;
-
-  public static final int SETTING_GROUP_NAME_N_IMAGE = 210;
-
-  public static final int SETTING_NOTIFY = 310;
-  public static final int SETTING_SOUND = 320;
-  public static final int SETTING_VIBRATE = 330;
 
   private final @NonNull Context              context;
   private final @NonNull Locale               locale;
@@ -50,6 +41,8 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
   private int                                 itemDataMemberCount;
   private DcChatlist                          itemDataSharedChats;
   private DcContact                           itemDataContact;
+  private String                              itemDataStatusText;
+  private boolean                             isMailingList;
   private final Set<Integer>                  selectedMembers;
 
   private final LayoutInflater                layoutInflater;
@@ -58,9 +51,9 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
 
   static class ItemData {
     static final int TYPE_PRIMARY_SETTING = 1;
-    static final int TYPE_MEMBER = 2;
-    static final int TYPE_SHARED_CHAT = 3;
-    static final int TYPE_SECONDARY_SETTING = 4;
+    static final int TYPE_STATUS = 2;
+    static final int TYPE_MEMBER = 3;
+    static final int TYPE_SHARED_CHAT = 4;
     int type;
     int contactId;
     int chatlistIndex;
@@ -130,6 +123,10 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
       item.hideItemDivider();
       return new ViewHolder(item);
     }
+    else if (viewType == ItemData.TYPE_STATUS) {
+      final ProfileStatusItem item = (ProfileStatusItem)layoutInflater.inflate(R.layout.profile_status_item, parent, false);
+      return new ViewHolder(item);
+    }
     else {
       final ProfileSettingsItem item = (ProfileSettingsItem)layoutInflater.inflate(R.layout.profile_settings_item, parent, false);
       return new ViewHolder(item);
@@ -179,6 +176,11 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
           locale, Collections.emptySet(), false);
       conversationListItem.setOnClickListener(view -> clickListener.onSharedChatClicked(chatId));
     }
+    else if(holder.itemView instanceof ProfileStatusItem) {
+      ProfileStatusItem item = (ProfileStatusItem) holder.itemView;
+      item.setOnLongClickListener(view -> {clickListener.onStatusLongClicked(); return true;});
+      item.set(itemData.get(i).label);
+    }
     else if(holder.itemView instanceof ProfileSettingsItem) {
       int settingsId = itemData.get(i).settingsId;
       ProfileSettingsItem profileSettingsItem = (ProfileSettingsItem) holder.itemView;
@@ -194,6 +196,7 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
 
   public interface ItemClickListener {
     void onSettingsClicked(int settingsId);
+    void onStatusLongClicked();
     void onSharedChatClicked(int chatId);
     void onMemberClicked(int contactId);
     void onMemberLongClicked(int contactId);
@@ -214,7 +217,11 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
     String txt = "";
     switch(getItemViewType(position)) {
       case ItemData.TYPE_MEMBER:
-        txt = context.getResources().getQuantityString(R.plurals.n_members, (int) itemDataMemberCount, (int) itemDataMemberCount);
+        if (isMailingList) {
+          txt = context.getString(R.string.contacts_headline);
+        } else {
+          txt = context.getResources().getQuantityString(R.plurals.n_members, (int) itemDataMemberCount, (int) itemDataMemberCount);
+        }
         break;
       case ItemData.TYPE_SHARED_CHAT:
         txt = context.getString(R.string.profile_shared_chats);
@@ -226,6 +233,9 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
         else {
           txt = context.getString(R.string.contact);
         }
+        break;
+      case ItemData.TYPE_STATUS:
+        txt = context.getString(R.string.pref_default_status_label);
         break;
       default:
         txt = context.getString(R.string.menu_settings);
@@ -250,6 +260,11 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
     return selectedMembers.size();
   }
 
+  @NonNull
+  public String getStatusText() {
+    return itemDataStatusText;
+  }
+
   public void clearSelection() {
     selectedMembers.clear();
     notifyDataSetChanged();
@@ -260,40 +275,35 @@ public class ProfileSettingsAdapter extends RecyclerView.Adapter
     itemDataMemberCount = 0;
     itemDataSharedChats = null;
     itemDataContact = null;
+    itemDataStatusText = "";
+    isMailingList = false;
 
     if (memberList!=null) {
       itemDataMemberCount = memberList.length;
-      itemData.add(new ItemData(ItemData.TYPE_MEMBER, DcContact.DC_CONTACT_ID_ADD_MEMBER, 0));
-      itemData.add(new ItemData(ItemData.TYPE_MEMBER, DcContact.DC_CONTACT_ID_QR_INVITE, 0));
-      for (int i = 0; i < memberList.length; i++) {
-        itemData.add(new ItemData(ItemData.TYPE_MEMBER, memberList[i], 0));
+      if (dcChat.isMailingList()) {
+        isMailingList = true;
+      } else {
+        itemData.add(new ItemData(ItemData.TYPE_MEMBER, DcContact.DC_CONTACT_ID_ADD_MEMBER, 0));
+        itemData.add(new ItemData(ItemData.TYPE_MEMBER, DcContact.DC_CONTACT_ID_QR_INVITE, 0));
       }
-//      itemData.add(new ItemData(ItemData.TYPE_SECONDARY_SETTING, SETTING_GROUP_NAME_N_IMAGE, context.getString(R.string.menu_group_name_and_image)));
+      for (int value : memberList) {
+        itemData.add(new ItemData(ItemData.TYPE_MEMBER, value, 0));
+      }
     }
     else if (sharedChats!=null && dcContact!=null) {
       itemDataContact = dcContact;
-      itemData.add(new ItemData(ItemData.TYPE_PRIMARY_SETTING, SETTING_CONTACT_ADDR,dcContact.getAddr()));
-//      itemData.add(new ItemData(ItemData.TYPE_PRIMARY_SETTING, SETTING_CONTACT_NAME, context.getString(R.string.menu_edit_name)));
-//      itemData.add(new ItemData(ItemData.TYPE_PRIMARY_SETTING, SETTING_ENCRYPTION, context.getString(R.string.profile_encryption)));
       itemData.add(new ItemData(ItemData.TYPE_PRIMARY_SETTING, SETTING_NEW_CHAT, context.getString(R.string.send_message)));
+
+      itemDataStatusText = dcContact.getStatus();
+      if (!itemDataStatusText.isEmpty()) {
+        itemData.add(new ItemData(ItemData.TYPE_STATUS, 0, itemDataStatusText));
+      }
       itemDataSharedChats = sharedChats;
       int sharedChatsCnt = sharedChats.getCnt();
       for (int i = 0; i < sharedChatsCnt; i++) {
         itemData.add(new ItemData(ItemData.TYPE_SHARED_CHAT, 0, i));
       }
     }
-
-//    if(dcChat!=null) {
-//      itemData.add(new ItemData(ItemData.TYPE_SECONDARY_SETTING, SETTING_NOTIFY,
-//          context.getString(Prefs.isChatMuted(context, dcChat.getId())? R.string.menu_unmute : R.string.menu_mute)));
-//      itemData.add(new ItemData(ItemData.TYPE_SECONDARY_SETTING, SETTING_SOUND, context.getString(R.string.pref_sound)));
-//      itemData.add(new ItemData(ItemData.TYPE_SECONDARY_SETTING, SETTING_VIBRATE, context.getString(R.string.pref_vibrate)));
-//    }
-
-//    if (dcContact!=null) {
-//      itemData.add(new ItemData(ItemData.TYPE_SECONDARY_SETTING, SETTING_BLOCK_CONTACT,
-//          context.getString(dcContact.isBlocked()? R.string.menu_unblock_contact : R.string.menu_block_contact)));
-//    }
 
     notifyDataSetChanged();
   }

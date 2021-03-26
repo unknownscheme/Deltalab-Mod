@@ -1,8 +1,5 @@
 package com.b44t.messenger;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 public class DcContext {
 
     public final static int DC_PREF_DEFAULT_MDNS_ENABLED = 1;
@@ -71,6 +68,10 @@ public class DcContext {
     public final static int DC_MEDIA_QUALITY_BALANCED = 0;
     public final static int DC_MEDIA_QUALITY_WORSE    = 1;
 
+    public final static int DC_DECISION_START_CHAT = 0;
+    public final static int DC_DECISION_BLOCK      = 1;
+    public final static int DC_DECISION_NOT_NOW    = 2;
+
     public DcContext(String osName, String dbfile) {
         contextCPtr = createContextCPtr(osName, dbfile);
     }
@@ -119,29 +120,27 @@ public class DcContext {
     public native boolean      mayBeValidAddr       (String addr);
     public native int          lookupContactIdByAddr(String addr);
     public native int[]        getContacts          (int flags, String query);
-    public native int          getBlockedCount      ();
     public native int[]        getBlockedContacts   ();
-    public @NonNull DcContact  getContact           (int contact_id) { return new DcContact(getContactCPtr(contact_id)); }
+    public DcContact           getContact           (int contact_id) { return new DcContact(getContactCPtr(contact_id)); }
     public native int          createContact        (String name, String addr);
     public native void         blockContact         (int id, int block);
     public native String       getContactEncrInfo   (int contact_id);
     public native boolean      deleteContact        (int id);
     public native int          addAddressBook       (String adrbook);
-    public @NonNull DcChatlist getChatlist          (int listflags, String query, int queryId) { return new DcChatlist(getChatlistCPtr(listflags, query, queryId)); }
-    public @NonNull DcChat     getChat              (int chat_id) { return new DcChat(getChatCPtr(chat_id)); }
+    public DcChatlist          getChatlist          (int listflags, String query, int queryId) { return new DcChatlist(getChatlistCPtr(listflags, query, queryId)); }
+    public DcChat              getChat              (int chat_id) { return new DcChat(getChatCPtr(chat_id)); }
+    public native String       getChatEncrInfo      (int chat_id);
     public native void         markseenMsgs         (int msg_ids[]);
     public native void         marknoticedChat      (int chat_id);
-    public native void         marknoticedContact   (int contact_id);
     public native void         setChatVisibility    (int chat_id, int visibility);
     public native int          getChatIdByContactId (int contact_id);
     public native int          createChatByContactId(int contact_id);
-    public native int          createChatByMsgId    (int msg_id);
     public native int          createGroupChat      (boolean verified, String name);
     public native boolean      isContactInChat      (int chat_id, int contact_id);
     public native int          addContactToChat     (int chat_id, int contact_id);
     public native int          removeContactFromChat(int chat_id, int contact_id);
     public native void         setDraft             (int chat_id, DcMsg msg/*null=delete*/);
-    public @Nullable DcMsg     getDraft             (int chat_id) { return new DcMsg(getDraftCPtr(chat_id)); }
+    public DcMsg               getDraft             (int chat_id) { return new DcMsg(getDraftCPtr(chat_id)); }
     public native int          setChatName          (int chat_id, String name);
     public native int          setChatProfileImage  (int chat_id, String name);
     public native int[]        getChatMsgs          (int chat_id, int flags, int marker1before);
@@ -154,7 +153,8 @@ public class DcContext {
     public native boolean      setChatEphemeralTimer (int chat_id, int timer);
     public native boolean      setChatMuteDuration  (int chat_id, long duration);
     public native void         deleteChat           (int chat_id);
-    public @NonNull DcMsg      getMsg               (int msg_id) { return new DcMsg(getMsgCPtr(msg_id)); }
+    public native int          decideOnContactRequest(int msg_id, int decision);
+    public DcMsg               getMsg               (int msg_id) { return new DcMsg(getMsgCPtr(msg_id)); }
     public native String       getMsgInfo           (int id);
     public native String       getMsgHtml           (int msg_id);
     public native int          getFreshMsgCount     (int chat_id);
@@ -167,14 +167,14 @@ public class DcContext {
     public native int          sendVideochatInvitation(int chat_id);
     public native int          addDeviceMsg         (String label, DcMsg msg);
     public native boolean      wasDeviceMsgEverAdded(String label);
-    public @NonNull DcLot      checkQr              (String qr) { return new DcLot(checkQrCPtr(qr)); }
+    public DcLot               checkQr              (String qr) { return new DcLot(checkQrCPtr(qr)); }
     public native String       getSecurejoinQr      (int chat_id);
     public native int          joinSecurejoin       (String qr);
     public native void         sendLocationsToChat  (int chat_id, int seconds);
     public native boolean      isSendingLocationsToChat(int chat_id);
-    public @NonNull DcArray    getLocations         (int chat_id, int contact_id, long timestamp_start, long timestamp_end) { return new DcArray(getLocationsCPtr(chat_id, contact_id, timestamp_start, timestamp_end)); }
+    public DcArray             getLocations         (int chat_id, int contact_id, long timestamp_start, long timestamp_end) { return new DcArray(getLocationsCPtr(chat_id, contact_id, timestamp_start, timestamp_end)); }
     public native void         deleteAllLocations   ();
-    public @Nullable DcProvider getProviderFromEmail (String email) { long cptr = getProviderFromEmailCPtr(email); return cptr!=0 ? new DcProvider(cptr) : null; }
+    public DcProvider          getProviderFromEmail (String email) { long cptr = getProviderFromEmailCPtr(email); return cptr!=0 ? new DcProvider(cptr) : null; }
 
     /**
      * @return true if at least one chat has location streaming enabled

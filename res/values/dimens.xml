@@ -31,10 +31,14 @@
     <dimen name="media_bubble_max_height">320dp</dimen>
     <dimen name="below_bubble">3dp</dimen>
 
+    <dimen name="media_bubble_sticker_dimens">175dp</dimen>
+
     <dimen name="gallery_thumbnail_radius">1dp</dimen>
 
     <dimen name="media_keyboard_provider_icon_padding">5dp</dimen>
     <dimen name="media_keyboard_provider_icon_margin">4dp</dimen>
+
+    <dimen name="recording_voice_lock_target">-150dp</dimen>
 
     <dimen name="conversation_individual_right_gutter">12dp</dimen>
     <dimen name="conversation_individual_left_gutter">12dp</dimen>

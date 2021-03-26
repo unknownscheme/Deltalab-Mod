@@ -1,13 +1,14 @@
 package org.thoughtcrime.securesms;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.b44t.messenger.DcChat;
 import com.b44t.messenger.DcContact;
@@ -73,7 +74,9 @@ public class ConversationTitleView extends RelativeLayout {
       String subtitleStr = "ErrSubtitle";
 
       int[] chatContacts = dcContext.getChatContacts(chatId);
-      if( dcChat.isGroup() ) {
+      if (dcChat.isMailingList()) {
+        subtitleStr = context.getString(R.string.mailing_list);
+      } else if( dcChat.isGroup() ) {
         subtitleStr = context.getResources().getQuantityString(R.plurals.n_members, chatContacts.length, chatContacts.length);
       } else if( chatContacts.length>=1 ) {
         if( dcChat.isSelfTalk() ) {
@@ -115,7 +118,8 @@ public class ConversationTitleView extends RelativeLayout {
     avatar.setAvatar(glideRequests, DcHelper.getContext(getContext()).getRecipient(contact), false);
     title.setText(contact.getDisplayName());
     title.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-    subtitle.setVisibility(View.GONE);
+    subtitle.setText(contact.getAddr());
+    subtitle.setVisibility(View.VISIBLE);
   }
 
   public void hideAvatar() {

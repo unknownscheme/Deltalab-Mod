@@ -21,6 +21,7 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -64,7 +65,6 @@ import com.b44t.messenger.DcChat;
 import com.b44t.messenger.DcContact;
 import com.b44t.messenger.DcContext;
 import com.b44t.messenger.DcEvent;
-import com.b44t.messenger.DcEventCenter;
 import com.b44t.messenger.DcMsg;
 
 import org.thoughtcrime.securesms.attachments.Attachment;
@@ -85,6 +85,7 @@ import org.thoughtcrime.securesms.components.camera.QuickAttachmentDrawer.Drawer
 import org.thoughtcrime.securesms.components.emoji.EmojiKeyboardProvider;
 import org.thoughtcrime.securesms.components.emoji.MediaKeyboard;
 import org.thoughtcrime.securesms.connect.ApplicationDcContext;
+import org.thoughtcrime.securesms.connect.DcEventCenter;
 import org.thoughtcrime.securesms.connect.DcHelper;
 import org.thoughtcrime.securesms.map.MapActivity;
 import org.thoughtcrime.securesms.mms.AttachmentManager;
@@ -476,7 +477,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     }
 
     if (isGroupConversation()) {
-      if (isActiveGroup()) {
+      if (!dcChat.isMailingList()) { // Leaving mailing lists is currently not supported
         inflater.inflate(R.menu.conversation_push_group_options, menu);
       }
     }
@@ -902,7 +903,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     });
 
     titleView.setOnClickListener(v -> handleProfile());
-    titleView.setOnBackClickedListener(view -> onBackPressed());
+    titleView.setOnBackClickedListener(view -> handleReturnToConversationList());
 
     composeText.setOnKeyListener(composeKeyPressedListener);
     composeText.addTextChangedListener(composeKeyPressedListener);
@@ -1019,10 +1020,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
     String name = data.getStringExtra(BlockedAndShareContactsActivity.SHARE_CONTACT_NAME_EXTRA);
     String mail = data.getStringExtra(BlockedAndShareContactsActivity.SHARE_CONTACT_MAIL_EXTRA);
     composeText.append(name + "\n" + mail);
-  }
-
-  private boolean isActiveGroup() {
-    return dcChat.isGroup();
   }
 
   private boolean isGroupConversation() {
@@ -1208,6 +1205,12 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   // handle attachment drawer, camera, recorder
 
   private void updateToggleButtonState() {
+    if (inputPanel.isRecordingInLockedMode()) {
+      buttonToggle.display(sendButton);
+      quickAttachmentToggle.hide();
+      return;
+    }
+
     if (composeText.getText().length() == 0 && !attachmentManager.isAttachmentPresent()) {
       buttonToggle.display(attachButton);
       quickAttachmentToggle.show();
@@ -1274,7 +1277,14 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   @Override
+  public void onRecorderLocked() {
+    updateToggleButtonState();
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+  }
+
+  @Override
   public void onRecorderFinished() {
+    updateToggleButtonState();
     Vibrator vibrator = ServiceUtil.getVibrator(this);
     vibrator.vibrate(20);
 
@@ -1311,6 +1321,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onRecorderCanceled() {
+    updateToggleButtonState();
     Vibrator vibrator = ServiceUtil.getVibrator(this);
     vibrator.vibrate(50);
 
@@ -1408,6 +1419,11 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   private class SendButtonListener implements OnClickListener, TextView.OnEditorActionListener {
     @Override
     public void onClick(View v) {
+      if (inputPanel.isRecordingInLockedMode()) {
+        inputPanel.releaseRecordingLock();
+        return;
+      }
+
       String rawText = composeText.getTextTrimmed();
       if (rawText.length() < 1 && !attachmentManager.isAttachmentPresent()) {
         Toast.makeText(ConversationActivity.this, R.string.chat_please_enter_message,

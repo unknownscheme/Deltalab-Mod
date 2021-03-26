@@ -1,25 +1,3 @@
-/*******************************************************************************
- *
- *                           Delta Chat Java Adapter
- *                           (C) 2017 Björn Petersen
- *                    Contact: r10s@b44t.com, http://b44t.com
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program.  If not, see http://www.gnu.org/licenses/ .
- *
- ******************************************************************************/
-
-
 // Purpose: The C part of the Java<->C Wrapper, see also DcContext.java
 
 
@@ -41,7 +19,7 @@ static char* char_ref__(JNIEnv* env, jstring a) {
     }
 
     /* we do not use the JNI functions GetStringUTFChars()/ReleaseStringUTFChars()
-    as they do not work on some older systems for code points >0xffff, eg. emojos.
+    as they do not work on some older systems for code points >0xffff, eg. emojis.
     as a workaround, we're calling back to java-land's String.getBytes() which works as expected */
     static jclass    s_strCls    = NULL;
     static jmethodID s_getBytes  = NULL;
@@ -296,12 +274,6 @@ JNIEXPORT jintArray Java_com_b44t_messenger_DcContext_getContacts(JNIEnv *env, j
 }
 
 
-JNIEXPORT jint Java_com_b44t_messenger_DcContext_getBlockedCount(JNIEnv *env, jobject obj)
-{
-    return dc_get_blocked_cnt(get_dc_context(env, obj));
-}
-
-
 JNIEXPORT jintArray Java_com_b44t_messenger_DcContext_getBlockedContacts(JNIEnv *env, jobject obj)
 {
     dc_array_t* ca = dc_get_blocked_contacts(get_dc_context(env, obj));
@@ -376,15 +348,18 @@ JNIEXPORT void Java_com_b44t_messenger_DcContext_markseenMsgs(JNIEnv *env, jobje
 }
 
 
-JNIEXPORT void Java_com_b44t_messenger_DcContext_marknoticedChat(JNIEnv *env, jobject obj, jint chat_id)
+JNIEXPORT jstring Java_com_b44t_messenger_DcContext_getChatEncrInfo(JNIEnv *env, jobject obj, jint chat_id)
 {
-    dc_marknoticed_chat(get_dc_context(env, obj), chat_id);
+    char* temp = dc_get_chat_encrinfo(get_dc_context(env, obj), chat_id);
+        jstring ret = JSTRING_NEW(temp);
+    dc_str_unref(temp);
+    return ret;
 }
 
 
-JNIEXPORT void Java_com_b44t_messenger_DcContext_marknoticedContact(JNIEnv *env, jobject obj, jint contact_id)
+JNIEXPORT void Java_com_b44t_messenger_DcContext_marknoticedChat(JNIEnv *env, jobject obj, jint chat_id)
 {
-    dc_marknoticed_contact(get_dc_context(env, obj), contact_id);
+    dc_marknoticed_chat(get_dc_context(env, obj), chat_id);
 }
 
 
@@ -397,12 +372,6 @@ JNIEXPORT void Java_com_b44t_messenger_DcContext_setChatVisibility(JNIEnv *env, 
 JNIEXPORT jint Java_com_b44t_messenger_DcContext_createChatByContactId(JNIEnv *env, jobject obj, jint contact_id)
 {
     return (jint)dc_create_chat_by_contact_id(get_dc_context(env, obj), contact_id);
-}
-
-
-JNIEXPORT jint Java_com_b44t_messenger_DcContext_createChatByMsgId(JNIEnv *env, jobject obj, jint msg_id)
-{
-    return (jint)dc_create_chat_by_msg_id(get_dc_context(env, obj), msg_id);
 }
 
 
@@ -472,6 +441,12 @@ JNIEXPORT void Java_com_b44t_messenger_DcContext_deleteChat(JNIEnv *env, jobject
 /* DcContext - handle messages */
 
 
+JNIEXPORT jint Java_com_b44t_messenger_DcContext_decideOnContactRequest(JNIEnv *env, jobject obj, jint msg_id, jint decision)
+{
+    return (jint)dc_decide_on_contact_request(get_dc_context(env, obj), msg_id, decision);
+}
+
+
 JNIEXPORT jint Java_com_b44t_messenger_DcContext_getFreshMsgCount(JNIEnv *env, jobject obj, jint chat_id)
 {
     return dc_get_fresh_msg_cnt(get_dc_context(env, obj), chat_id);
@@ -482,7 +457,6 @@ JNIEXPORT jint Java_com_b44t_messenger_DcContext_estimateDeletionCount(JNIEnv *e
 {
     return dc_estimate_deletion_cnt(get_dc_context(env, obj), from_server, seconds);
 }
-
 
 
 JNIEXPORT jlong Java_com_b44t_messenger_DcContext_getMsgCPtr(JNIEnv *env, jobject obj, jint id)
@@ -1017,9 +991,9 @@ JNIEXPORT jint Java_com_b44t_messenger_DcChat_getId(JNIEnv *env, jobject obj)
 }
 
 
-JNIEXPORT jboolean Java_com_b44t_messenger_DcChat_isGroup(JNIEnv *env, jobject obj)
+JNIEXPORT jint Java_com_b44t_messenger_DcChat_getType(JNIEnv *env, jobject obj)
 {
-    return dc_chat_get_type(get_dc_chat(env, obj)) == DC_CHAT_TYPE_GROUP;
+    return dc_chat_get_type(get_dc_chat(env, obj));
 }
 
 
@@ -1194,6 +1168,15 @@ JNIEXPORT jstring Java_com_b44t_messenger_DcMsg_getText(JNIEnv *env, jobject obj
 }
 
 
+JNIEXPORT jstring Java_com_b44t_messenger_DcMsg_getSubject(JNIEnv *env, jobject obj)
+{
+    char* temp = dc_msg_get_subject(get_dc_msg(env, obj));
+        jstring ret = JSTRING_NEW(temp);
+    dc_str_unref(temp);
+    return ret;
+}
+
+
 JNIEXPORT jlong Java_com_b44t_messenger_DcMsg_getTimestamp(JNIEnv *env, jobject obj)
 {
     return JTIMESTAMP(dc_msg_get_timestamp(get_dc_msg(env, obj)));
@@ -1233,6 +1216,12 @@ JNIEXPORT jint Java_com_b44t_messenger_DcMsg_getState(JNIEnv *env, jobject obj)
 JNIEXPORT jint Java_com_b44t_messenger_DcMsg_getChatId(JNIEnv *env, jobject obj)
 {
     return dc_msg_get_chat_id(get_dc_msg(env, obj));
+}
+
+
+JNIEXPORT jint Java_com_b44t_messenger_DcMsg_getRealChatId(JNIEnv *env, jobject obj)
+{
+    return dc_msg_get_real_chat_id(get_dc_msg(env, obj));
 }
 
 
@@ -1286,6 +1275,18 @@ JNIEXPORT jstring Java_com_b44t_messenger_DcMsg_getSummarytext(JNIEnv *env, jobj
         jstring ret = JSTRING_NEW(temp);
     dc_str_unref(temp);
     return ret;
+}
+
+
+JNIEXPORT jstring Java_com_b44t_messenger_DcMsg_getOverrideSenderName(JNIEnv *env, jobject obj)
+{
+    char* temp = dc_msg_get_override_sender_name(get_dc_msg(env, obj));
+        jstring ret = NULL;
+        if (temp) {
+            ret = JSTRING_NEW(temp);
+        }
+    dc_str_unref(temp);
+    return ret; // null if there is no override-sender-name
 }
 
 
@@ -1442,7 +1443,6 @@ JNIEXPORT jstring Java_com_b44t_messenger_DcMsg_getError(JNIEnv *env, jobject ob
 }
 
 
-
 /*******************************************************************************
  * DcContact
  ******************************************************************************/
@@ -1522,6 +1522,15 @@ JNIEXPORT jstring Java_com_b44t_messenger_DcContact_getProfileImage(JNIEnv *env,
 JNIEXPORT jint Java_com_b44t_messenger_DcContact_getColor(JNIEnv *env, jobject obj)
 {
     return dc_contact_get_color(get_dc_contact(env, obj));
+}
+
+
+JNIEXPORT jstring Java_com_b44t_messenger_DcContact_getStatus(JNIEnv *env, jobject obj)
+{
+    char* temp = dc_contact_get_status(get_dc_contact(env, obj));
+        jstring ret = JSTRING_NEW(temp);
+    dc_str_unref(temp);
+    return ret;
 }
 
 

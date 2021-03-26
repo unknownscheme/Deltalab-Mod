@@ -1,8 +1,5 @@
 package com.b44t.messenger;
 
-import android.graphics.Color;
-import android.util.Log;
-
 public class DcContact {
 
     public final static int DC_CONTACT_ID_SELF               = 1;
@@ -54,15 +51,11 @@ public class DcContact {
     public native String  getNameNAddr   ();
     public native String  getProfileImage();
     public native int     getColor       ();
+    public native String  getStatus      ();
     public native boolean isBlocked      ();
     public native boolean isVerified     ();
 
     // working with raw c-data
     private long        contactCPtr;    // CAVE: the name is referenced in the JNI
     private native void unrefContactCPtr();
-
-    public int getArgbColor() {
-        int rgb = getColor();
-        return Color.argb(0xFF, Color.red(rgb), Color.green(rgb), Color.blue(rgb));
-    }
 }

@@ -113,6 +113,8 @@
     <string name="audio">Audio</string>
     <string name="voice_message">Mensaxe de voz</string>
     <string name="forwarded_message">Mensaxe reenviado</string>
+    <!-- %1$s will be replaced by the name or the email-address of the person who has forwarded the message -->
+    <string name="forwarded_by">Reenviado por %1$s</string>
     <string name="video">Vídeo</string>
     <string name="documents">Documentos</string>
     <string name="contact">Contacto</string>
@@ -185,6 +187,8 @@
     <!-- menu entry that opens eg. a gallery image or a document in the chat at the correct position -->
     <string name="show_in_chat">Mostrar na conversa</string>
     <string name="menu_share">Compartir</string>
+    <!-- this is the action "to block sth." usually a mailing list or a contact. this is NOT "a large solid piece of hard material" :) -->
+    <string name="block">Bloquear</string>
     <string name="menu_block_contact">Bloquear contacto</string>
     <string name="menu_unblock_contact">Desbloquear contacto</string>
     <string name="menu_play">Reproducir</string>
@@ -330,6 +334,11 @@
     <string name="messaging_disabled_deaddrop">Preme nunha mensaxe para aceptar ou denegar a solicitude de contacto</string>
     <string name="cannot_display_unsuported_file_type">Non se pode motrar este tipo de ficheiro: %s</string>
     <string name="attachment_failed_to_load">Erro ao cargar o anexo</string>
+
+
+    <!-- mailing lists -->
+    <string name="mailing_list">Lista de correo</string>
+    <string name="ask_show_mailing_list">Mostrar lista de correo \"%1$s\"?</string>
 
 
     <!-- map -->
@@ -564,6 +573,7 @@
     <string name="autodel_after_1_day">Após 1 día</string>
     <string name="autodel_after_1_week">Após 1 semana</string>
     <string name="autodel_after_4_weeks">Após 4 semanas</string>
+    <string name="after_5_weeks">Após 5 semanas</string>
     <string name="autodel_after_1_year">Após 1 ano</string>
 
     <!-- autocrypt -->

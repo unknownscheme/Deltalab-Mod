@@ -3,13 +3,11 @@ package org.thoughtcrime.securesms.connect;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -23,7 +21,6 @@ import com.b44t.messenger.DcChat;
 import com.b44t.messenger.DcContact;
 import com.b44t.messenger.DcContext;
 import com.b44t.messenger.DcEvent;
-import com.b44t.messenger.DcEventCenter;
 import com.b44t.messenger.DcEventEmitter;
 import com.b44t.messenger.DcLot;
 import com.b44t.messenger.DcMsg;
@@ -39,7 +36,6 @@ import org.thoughtcrime.securesms.util.Util;
 import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Set;
 
 public class ApplicationDcContext extends DcContext {
 
@@ -227,6 +223,7 @@ public class ApplicationDcContext extends DcContext {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType(mimeType);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.putExtra(Intent.EXTRA_TEXT, msg.getText());
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         activity.startActivity(Intent.createChooser(intent, context.getString(R.string.chat_share_with_title)));
       }

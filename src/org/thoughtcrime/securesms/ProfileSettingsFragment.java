@@ -1,17 +1,11 @@
 package org.thoughtcrime.securesms;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ActionMode;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,14 +14,22 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.b44t.messenger.DcChat;
 import com.b44t.messenger.DcChatlist;
 import com.b44t.messenger.DcContact;
 import com.b44t.messenger.DcContext;
 import com.b44t.messenger.DcEvent;
-import com.b44t.messenger.DcEventCenter;
 
 import org.thoughtcrime.securesms.connect.ApplicationDcContext;
+import org.thoughtcrime.securesms.connect.DcEventCenter;
 import org.thoughtcrime.securesms.connect.DcHelper;
 import org.thoughtcrime.securesms.mms.GlideApp;
 import org.thoughtcrime.securesms.qr.QrShowActivity;
@@ -137,31 +139,26 @@ public class ProfileSettingsFragment extends Fragment
   @Override
   public void onSettingsClicked(int settingsId) {
     switch(settingsId) {
-      case ProfileSettingsAdapter.SETTING_CONTACT_ADDR:
-        onContactAddrClicked();
-        break;
       case ProfileSettingsAdapter.SETTING_NEW_CHAT:
         onNewChat();
         break;
-      case ProfileSettingsAdapter.SETTING_CONTACT_NAME:
-        ((ProfileActivity)getActivity()).onEditName();
-        break;
-      case ProfileSettingsAdapter.SETTING_ENCRYPTION:
-        ((ProfileActivity)getActivity()).onEncrInfo();
-        break;
-      case ProfileSettingsAdapter.SETTING_BLOCK_CONTACT:
-        ((ProfileActivity)getActivity()).onBlockContact();
-        break;
-      case ProfileSettingsAdapter.SETTING_NOTIFY:
-        ((ProfileActivity)getActivity()).onNotifyOnOff();
-        break;
-      case ProfileSettingsAdapter.SETTING_SOUND:
-        ((ProfileActivity)getActivity()).onSoundSettings();
-        break;
-      case ProfileSettingsAdapter.SETTING_VIBRATE:
-        ((ProfileActivity)getActivity()).onVibrateSettings();
-        break;
     }
+  }
+
+  @Override
+  public void onStatusLongClicked() {
+      Context context = getContext();
+      new AlertDialog.Builder(context)
+        .setTitle(R.string.pref_default_status_label)
+        .setItems(new CharSequence[]{
+            context.getString(R.string.menu_copy_to_clipboard)
+          },
+          (dialogInterface, i) -> {
+            Util.writeTextToClipboard(context, adapter.getStatusText());
+            Toast.makeText(context, context.getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
+          })
+        .setNegativeButton(R.string.cancel, null)
+        .show();
   }
 
   @Override
@@ -229,21 +226,6 @@ public class ProfileSettingsFragment extends Fragment
     getActivity().finish();
   }
 
-  private void onContactAddrClicked() {
-    String address = dcContext.getContact(contactId).getAddr();
-    new AlertDialog.Builder(getContext())
-        .setTitle(address)
-        .setItems(new CharSequence[]{
-                getContext().getString(R.string.menu_copy_to_clipboard)
-            },
-            (dialogInterface, i) -> {
-              Util.writeTextToClipboard(getContext(), address);
-              Toast.makeText(getContext(), getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT).show();
-            })
-        .setNegativeButton(R.string.cancel, null)
-        .show();
-  }
-
   private void onNewChat() {
     DcContact dcContact = dcContext.getContact(contactId);
     int chatId = dcContext.createChatByContactId(dcContact.getId());
@@ -262,6 +244,8 @@ public class ProfileSettingsFragment extends Fragment
     @Override
     public boolean onCreateActionMode(ActionMode mode, Menu menu) {
       mode.getMenuInflater().inflate(R.menu.profile_context, menu);
+      DcChat dcChat = dcContext.getChat(chatId);
+      menu.findItem(R.id.delete).setVisible(!dcChat.isMailingList());
       mode.setTitle("1");
 
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

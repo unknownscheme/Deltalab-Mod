@@ -70,6 +70,7 @@
     <attr name="emoji_variation_selector_background" format="reference|color" />
     <attr name="quick_camera_icon" format="reference"/>
     <attr name="quick_mic_icon" format="reference"/>
+    <attr name="recording_lock_background" format="reference"/>
 
     <attr name="conversation_item_background" format="reference"/>
     <attr name="conversation_item_incoming_bubble_color" format="reference|color"/>
@@ -114,7 +115,6 @@
     <attr name="menu_copy_icon" format="reference" />
     <attr name="menu_info_icon" format="reference" />
     <attr name="menu_forward_icon" format="reference" />
-    <attr name="menu_save_icon" format="reference" />
     <attr name="menu_reply_icon" format="reference" />
 
     <attr name="pref_icon_tint" format="color"/>

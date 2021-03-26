@@ -58,12 +58,12 @@ import com.b44t.messenger.DcChat;
 import com.b44t.messenger.DcContact;
 import com.b44t.messenger.DcContext;
 import com.b44t.messenger.DcEvent;
-import com.b44t.messenger.DcEventCenter;
 import com.b44t.messenger.DcMsg;
 
 import org.thoughtcrime.securesms.ConversationAdapter.ItemClickListener;
 import org.thoughtcrime.securesms.components.reminder.DozeReminder;
 import org.thoughtcrime.securesms.connect.ApplicationDcContext;
+import org.thoughtcrime.securesms.connect.DcEventCenter;
 import org.thoughtcrime.securesms.connect.DcHelper;
 import org.thoughtcrime.securesms.database.Address;
 import org.thoughtcrime.securesms.mms.GlideApp;
@@ -334,6 +334,7 @@ public class ConversationFragment extends Fragment
 
         if (messageRecords.size() > 1) {
             menu.findItem(R.id.menu_context_details).setVisible(false);
+            menu.findItem(R.id.menu_context_share).setVisible(false);
             menu.findItem(R.id.menu_context_save_attachment).setVisible(false);
             menu.findItem(R.id.menu_context_reply).setVisible(false);
             menu.findItem(R.id.menu_context_reply_privately).setVisible(false);
@@ -341,6 +342,7 @@ public class ConversationFragment extends Fragment
             DcMsg messageRecord = messageRecords.iterator().next();
             DcChat chat = getListAdapter().getChat();
             menu.findItem(R.id.menu_context_details).setVisible(true);
+            menu.findItem(R.id.menu_context_share).setVisible(messageRecord.hasFile());
             menu.findItem(R.id.menu_context_save_attachment).setVisible(messageRecord.hasFile());
             boolean canReply = canReplyToMsg(messageRecord);
             menu.findItem(R.id.menu_context_reply).setVisible(chat.canSend() && canReply);
@@ -428,7 +430,7 @@ public class ConversationFragment extends Fragment
 
             if (msg.getFromId() != prevMsg.getFromId() && !singleMsg) {
                 DcContact contact = dcContext.getContact(msg.getFromId());
-                result.append(contact.getDisplayName()).append(":\n");
+                result.append(msg.getSenderName(contact, false)).append(":\n");
             }
             if (msg.getType() == DcMsg.DC_MSG_TEXT || (singleMsg && !msg.getText().isEmpty())) {
                 result.append(msg.getText());
@@ -941,6 +943,9 @@ public class ConversationFragment extends Fragment
                     return true;
                 case R.id.menu_context_delete_message:
                     handleDeleteMessages(getListAdapter().getSelectedItems());
+                    return true;
+                case R.id.menu_context_share:
+                    dcContext.openForViewOrShare(getContext(), getSelectedMessageRecord().getId(), Intent.ACTION_SEND);
                     return true;
                 case R.id.menu_context_details:
                     handleDisplayDetails(getSelectedMessageRecord());
