@@ -87,7 +87,6 @@ import org.thoughtcrime.securesms.components.emoji.MediaKeyboard;
 import org.thoughtcrime.securesms.connect.ApplicationDcContext;
 import org.thoughtcrime.securesms.connect.DcEventCenter;
 import org.thoughtcrime.securesms.connect.DcHelper;
-import org.thoughtcrime.securesms.map.MapActivity;
 import org.thoughtcrime.securesms.mms.AttachmentManager;
 import org.thoughtcrime.securesms.mms.AttachmentManager.MediaType;
 import org.thoughtcrime.securesms.mms.AudioSlide;
@@ -594,9 +593,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleShowMap() {
-    Intent intent = new Intent(this, MapActivity.class);
-    intent.putExtra(MapActivity.CHAT_ID, chatId);
-    startActivity(intent);
   }
 
   private void handleReturnToConversationList() {
