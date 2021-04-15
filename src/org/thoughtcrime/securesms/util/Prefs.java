@@ -250,16 +250,6 @@ public class Prefs {
     return getStringPreference(context, LED_COLOR_PREF, "blue");
   }
 
-  // mute
-
-  public static void setChatMuteDuration(DcContext context, int chatId, long duration) {
-    context.setChatMuteDuration(chatId, duration);
-  }
-
-  public static boolean isChatMuted(DcChat chat) {
-    return chat.isMuted();
-  }
-
   // map
 
   public static void setMapZoom(Context context, int chatId, double zoom) {
