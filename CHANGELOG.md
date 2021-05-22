@@ -1,10 +1,43 @@
 # Delta Chat Android Changelog
 
-## v1.19.1 Preview Release
-#2021-04
+## v1.20.2
 
-* show answers to generic support-addresses as info@company.com in context
-* allow different sender for answers to support-addresses as info@company.com
+* fix crash when receiving some special messages
+* fix downloading some messages multiple times
+* fix formatting of read receipt texts
+* update translations
+
+
+## v1.20.1
+
+* improved accessibility and screen reader support
+* use the same emoji style everywhere across the app
+* allow to select and copy text from "message details" and error dialogs
+* show hints about how location data are used
+* fix: don't collapse search menu on group changes
+* add Indonesian, Polish, Ukrainian local help, update other translations
+
+
+## v1.19.2 Preview Release
+2021-04
+
+* opening the contact request chat marks all contact requests as noticed
+  and removes the sticky hint from the chatlist
+* if "Show classic mails" is enabled,
+  the contact request hint in the corresponding chat
+* speedup global search
+* show system message status while sending and on errors
+* improve quote style when replying with a sticker
+* fix clicks on system messages
+* fix sticker scaling
+* fix: disable "reply privately" in contact requests chat
+
+
+## v1.19.1 Preview Release
+2021-04
+
+* show answers to generic support-addresses as info@example.com in context
+* allow different sender for answers to support-addresses as info@example.com
 * add APNG and animated webp support
 * allow videochat-invites for groups
 * let stickers handle taps
@@ -19,10 +52,11 @@
 
 
 ## v1.17.0 Preview Release
-#2021-04
+2021-04
 
 * new mailinglist and better bot support
 * add option to view original-/html-mails
+* check all imap folders for new messages from time to time
 * use more colors for user avatars
 * improve e-mail compatibility
 * improve compatibility with Outlook.com

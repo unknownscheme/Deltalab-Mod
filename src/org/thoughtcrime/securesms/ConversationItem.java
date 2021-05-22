@@ -83,7 +83,6 @@ public class ConversationItem extends BaseConversationItem
   private static final Rect SWIPE_RECT = new Rect();
 
   private static final int MAX_MEASURE_CALLS = 3;
-  static long PULSE_HIGHLIGHT_MILLIS = 500;
 
   private DcContact     dcContact;
   private Locale        locale;
@@ -163,7 +162,7 @@ public class ConversationItem extends BaseConversationItem
                    @NonNull Recipient               recipients,
                    boolean                          pulseHighlight)
   {
-    bind(messageRecord, dcChat, batchSelected);
+    bind(messageRecord, dcChat, batchSelected, pulseHighlight);
     this.locale                 = locale;
     this.glideRequests          = glideRequests;
     this.conversationRecipient  = recipients;
@@ -176,7 +175,6 @@ public class ConversationItem extends BaseConversationItem
     setGutterSizes(messageRecord, showSender);
     setMessageShape(messageRecord);
     setMediaAttributes(messageRecord, showSender);
-    setInteractionState(messageRecord, pulseHighlight);
     setBodyText(messageRecord);
     setBubbleState(messageRecord);
     setContactPhoto();
@@ -270,17 +268,9 @@ public class ConversationItem extends BaseConversationItem
     }
   }
 
-  private void setInteractionState(DcMsg messageRecord, boolean pulseHighlight) {
-    if (batchSelected.contains(messageRecord)) {
-      setBackgroundResource(R.drawable.conversation_item_background);
-      setSelected(true);
-    } else if (pulseHighlight) {
-      setBackgroundResource(R.drawable.conversation_item_background_animated);
-      setSelected(true);
-      postDelayed(() -> setSelected(false), PULSE_HIGHLIGHT_MILLIS);
-    } else {
-      setSelected(false);
-    }
+  @Override
+  protected void setInteractionState(DcMsg messageRecord, boolean pulseHighlight) {
+    super.setInteractionState(messageRecord, pulseHighlight);
 
     if (mediaThumbnailStub.resolved()) {
       mediaThumbnailStub.get().setFocusable(!shouldInterceptClicks(messageRecord) && batchSelected.isEmpty());
@@ -549,6 +539,8 @@ public class ConversationItem extends BaseConversationItem
       quoteView.dismiss();
       if (mediaThumbnailStub.resolved()) {
         ViewUtil.setTopMargin(mediaThumbnailStub.get(), 0);
+      } else if (stickerStub.resolved()) {
+        ViewUtil.setTopMargin(stickerStub.get(), 0);
       }
       return;
     }
@@ -571,7 +563,8 @@ public class ConversationItem extends BaseConversationItem
             msg,
             author,
             quoteTxt,
-            slideDeck);
+            slideDeck,
+            current.getType() == DcMsg.DC_MSG_STICKER);
 
     quoteView.setVisibility(View.VISIBLE);
     quoteView.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -588,6 +581,8 @@ public class ConversationItem extends BaseConversationItem
 
     if (mediaThumbnailStub.resolved()) {
       ViewUtil.setTopMargin(mediaThumbnailStub.get(), readDimen(R.dimen.message_bubble_top_padding));
+    } else if (stickerStub.resolved()) {
+      ViewUtil.setTopMargin(stickerStub.get(), readDimen(R.dimen.message_bubble_top_padding));
     }
   }
 
