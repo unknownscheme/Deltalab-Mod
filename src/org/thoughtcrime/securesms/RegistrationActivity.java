@@ -500,8 +500,7 @@ public class RegistrationActivity extends BaseActionBarActivity implements DcEve
 
     private boolean verifyRequiredFields() {
         String email = emailInput.getText().toString();
-        return !email.isEmpty() && matchesEmailPattern(email)
-                && !passwordInput.getText().toString().isEmpty();
+        return !email.isEmpty() && !passwordInput.getText().toString().isEmpty();
     }
 
     private void setupConfig() {
