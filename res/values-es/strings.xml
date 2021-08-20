@@ -40,7 +40,12 @@
     <string name="profile">Perfil</string>
     <string name="main_menu">Menú principal</string>
     <string name="start_chat">Comenzar chat</string>
-    <string name="show_full_message">Mostrar el mensaje completo...</string>
+    <string name="show_full_message">Mostrar mensaje completo...</string>
+    <string name="show_full_message_in_browser">Mostrar mensaje completo en el navegador…</string>
+    <!-- this is shown as placeholder when something is loading at some places -->
+    <string name="loading">Cargando…</string>
+    <string name="hide">Ocultar</string>
+    <string name="activate">Activar</string>
     <string name="load_remote_content">Cargar imágenes remotas</string>
     <!-- possible answers to the question are: Never, Always, Once -->
     <string name="load_remote_content_ask">Las imágenes remotas pueden ser usadas para seguirte.\n\nLa opción también permite cargar fuentes y otros contenidos. Inclusive si están deshabilitadas, quizás puedas ver imágenes embebidas o en caché.\n\n¿Cargar imágenes remotas?</string>
@@ -54,11 +59,10 @@
     <string name="done">Hecho</string>
     <string name="undo">Deshacer</string>
     <string name="offline">Fuera de línea</string>
-    <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in ios headers, the string should be as short as possible, though. -->
+    <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in iOS headers, the string should be as short as possible, though. -->
     <string name="next">Siguiente</string>
     <string name="error">Error</string>
     <string name="error_x">Error: %1$s</string>
-    <string name="error_no_network">Red no disponible.</string>
     <string name="no_app_to_handle_data">No se encontró una aplicación compatible con el tipo de contenido</string>
     <string name="no_browser_installed">No hay ningún navegador instalado.</string>
     <string name="file_not_found">No se pudo encontrar %1$s.</string>
@@ -115,7 +119,7 @@
     <string name="voice_message">Mensaje de voz</string>
     <string name="forwarded">Reenviado</string>
     <string name="forwarded_message">Mensaje reenviado</string>
-    <!-- %1$s will be replaced by the name or the email-address of the person who has forwarded the message -->
+    <!-- %1$s will be replaced by the name or the e-mail address of the person who has forwarded the message -->
     <string name="forwarded_by">Reenviado por %1$s</string>
     <string name="video">Video</string>
     <string name="documents">Documentos</string>
@@ -182,6 +186,8 @@
     <string name="menu_copy_to_clipboard">Copiar al portapapeles</string>
     <string name="menu_copy_selection_to_clipboard">Copiar selección</string>
     <string name="menu_copy_link_to_clipboard">Copiar enlace</string>
+    <string name="menu_copy_text_to_clipboard">Copiar texto</string>
+    <string name="menu_copy_image_to_clipboard">Copiar imagen</string>
     <string name="paste_from_clipboard">Pegar del portapapeles</string>
     <string name="menu_forward">Reenviar mensaje</string>
     <string name="menu_resend">Reenviar mensaje</string>
@@ -197,6 +203,7 @@
     <string name="block">Bloquear</string>
     <string name="menu_block_contact">Bloquear contacto</string>
     <string name="menu_unblock_contact">Desbloquear contacto</string>
+    <string name="accept">Aceptar</string>
     <string name="menu_play">Reproducir</string>
     <string name="menu_pause">Pausar</string>
     <string name="menu_scroll_to_bottom">Desplazarse al final</string>
@@ -215,6 +222,7 @@
     <string name="menu_zoom_in">Acercar</string>
     <string name="menu_zoom_out">Alejar</string>
     <string name="menu_save_log">Salvar log</string>
+    <string name="menu_more_options">Más opciones</string>
     <string name="title_share_location">Compartir ubicación con todos los miembros del grupo</string>
     <string name="device_talk">Mensajes del dispositivo</string>
     <string name="device_talk_subtitle">Mensajes generados localmente</string>
@@ -325,6 +333,7 @@
     <string name="chat_share_with_title">Compartir con</string>
     <string name="chat_input_placeholder">Mensaje</string>
     <string name="chat_archived_label">Archivado</string>
+    <string name="chat_request_label">Solicitud</string>
     <string name="chat_no_messages">No hay mensajes.</string>
     <string name="chat_self_talk_subtitle">Mensajes que envié a mí mismo</string>
     <string name="saved_messages">Mensajes guardados</string>
@@ -352,6 +361,10 @@
     <string name="show_location_traces">Mostrar trazas</string>
     <string name="add_poi">Enviar punto de interés</string>
 
+    <!-- punycode warning / labeled links -->
+    <!-- placeholder is domain/hostname that should be trusted -->
+    <string name="open_external_url_trust_domain">No preguntar nuevamente para %1$s</string>
+    <string name="puny_code_warning_header">Enlace sospechoso detectado</string>
     <!-- search -->
     <string name="search">Buscar</string>
     <string name="search_explain">Buscar chats, contactos, y mensajes</string>
@@ -383,6 +396,18 @@
     <string name="send_message">Enviar mensaje</string>
 
 
+    <!-- Connectivity -->
+    <string name="connectivity">Conectividad</string>
+    <!-- Shown eg. in the title bar if the app is "Not connected"; as there is very few room, try to be as short as possible. -->
+    <string name="connectivity_not_connected">Desconectado</string>
+    <!-- Shown eg. in the title bar if the app is "Connecting"; as there is very few room, try to be as short as possible. Note that the three dots are a single character (…), not three (...) -->
+    <string name="connectivity_connecting">Conectando…</string>
+    <!-- Shown eg. in the title bar if the app is "Updating" (eg. getting new/old message, sync things); as there is very few room, try to be as short as possible. Note that the three dots are a single character (…), not three (...) -->
+    <string name="connectivity_updating">Actualizando…</string>
+    <!-- Shown eg. in the setting if the app is "Connected" -->
+    <string name="connectivity_connected">Conectado</string>
+
+
     <!-- welcome and login -->
     <string name="welcome_intro1_message">La aplicación de mensajería instantánea con la audiencia más amplia del mundo. Libre e independiente. </string>
     <string name="login_title">Iniciar sesión</string>
@@ -402,7 +427,7 @@
     <string name="login_smtp_port">Puerto SMTP</string>
     <string name="login_smtp_security">Seguridad SMTP</string>
     <string name="login_auth_method">Método de autorización</string>
-    <!-- Translators: %1$s will be replaced by an email address -->
+    <!-- Translators: %1$s will be replaced by an e-mail address -->
     <string name="login_oauth2_checking_addr">Chequeando %1$s</string>
     <string name="login_info_oauth2_title">¿Continuar con la configuración simplificada?</string>
     <string name="login_info_oauth2_text">La dirección de correo electrónico introducida admite una configuración simplificada (OAuth2).\n\nEn el próximo paso, permita que Delta Chat actúe como su aplicación de chat con correo electrónico.\n\nNo hay servidores de Delta Chat, tus datos permanecen en tu dispositivo!</string>
@@ -414,7 +439,7 @@
     <string name="import_backup_title">Importar copia de respaldo</string>
     <string name="import_backup_ask">Copia de respaldo encontrada en \"%1$s\".\n\n¿Desea importar y utilizar todos los datos y configuraciones de ella?</string>
     <string name="import_backup_no_backup_found">No se encontraron copias de seguridad.\n\nCopie el archivo de respaldo en \"%1$s\" e inténtelo de nuevo. Alternativamente, presione \"Empezar a Chatear\" para continuar con el proceso de configuración normal.</string>
-    <!-- Translators: %1$s will be replaced by the email address -->
+    <!-- Translators: %1$s will be replaced by the e-mail address -->
     <string name="login_error_cannot_login">No se puede iniciar sesión como \"%1$s\". Por favor, compruebe si la dirección de correo y la contraseña son correctas.</string>
     <!-- Translators: %1$s will be replaced by the server name (eg. imap.somewhere.org) and %2$s will be replaced by the human-readable response from the server. this response may be a single word or some sentences and may or may not be localized. -->
     <string name="login_error_server_response">Respuesta de %1$s: %2$s\n\nAlgunos proveedores colocan información adicional en su bandeja de entrada; Puedes comprobarlo por ej. en la interfaz web. Consulte a su proveedor o amigos si tiene problemas.</string>
@@ -538,6 +563,8 @@
     <string name="profile_image_select">Seleccionar imagen de perfil</string>
     <string name="select_your_new_profile_image">Seleccionar tu nueva imagen de perfil</string>
     <string name="profile_image_delete">Borrar imagen de perfil</string>
+    <string name="pref_edit_profile">Editar perfil</string>
+
     <!-- Emoji picker and categories -->
     <string name="emoji_search_results">Resultados de la búsqueda</string>
     <string name="emoji_not_found">No se encontraron emojis</string>
@@ -642,6 +669,8 @@
     <string name="qrscan_contains_url">URL del código QR escaneado:\n\n%1$s</string>
     <string name="qrscan_fingerprint_label">Huella digital</string>
     <string name="qrscan_x_verified_introduce_myself">%1$s verificado, presentarme ...</string>
+    <string name="withdraw_qr_code">Desactivar código QR</string>
+    <string name="revive_qr_code">Activar código QR</string>
     <string name="qrshow_title">Código de invitación QR</string>
     <string name="qrshow_x_joining">%1$s se une.</string>
     <string name="qrshow_x_verified">%1$s verificado.</string>
@@ -720,6 +749,8 @@
     <string name="global_menu_help_contribute_desktop">Contribuir en GitHub</string>
     <string name="global_menu_help_report_desktop">Reportar un problema</string>
     <string name="global_menu_help_about_desktop">Sobre Delta Chat</string>
+    <string name="global_menu_file_open_desktop">Abrir Delta Chat</string>
+    <string name="global_menu_minimize_to_tray">Minimizar</string>
     <string name="no_chat_selected_suggestion_desktop">Selecciona un chat o crea uno nuevo</string>
     <string name="write_message_desktop">Escribe un mensaje</string>
     <string name="encryption_info_title_desktop">Información de cifrado</string>
@@ -765,6 +796,8 @@
     <string name="menu.view.developer.open.log.folder">Abrir Carpeta de Logs</string>
     <string name="menu.view.developer.open.current.log.file">Abrir Archivo de Logs Actual</string>
     <string name="user_location_permission_explanation">Delta Chat necesita el permiso de ubicación para mostrar y compartir tu ubicación.</string>
+    <string name="show_window">Mostrar ventana</string>
+
     <!-- accessibility, the general idea is to use the normal strings for accessibility hints wherever possible -->
     <string name="a11y_delivery_status_error">Estado de envío: Error</string>
     <string name="a11y_encryption_padlock">Candado de cifrado</string>
@@ -795,6 +828,8 @@
     <string name="pref_reliable_service_explain">Requiere notificación permanente</string>
     <string name="perm_enable_bg_reminder_title">Toque aquí para recibir mensajes mientras Delta Chat está en segundo plano.</string>
     <string name="perm_enable_bg_already_done">Ya has permitido que Delta Chat reciba mensajes en segundo plano.\n\nSi los mensajes aún no llegan en segundo plano, compruebe también la configuración de su sistema.</string>
-    <string name="update_1_20">Mejorada la compatibilidad con el correo electrónico en la versión 1.20:\n\n📫 Leer listas de correo\n📭 Leer correos HTML\n📪 Buen manejo de las direcciones de soporte\n📫 Arregladas muchas molestias grandes y pequeñas\n\nLea nuestra nueva publicación sobre estos primeros pasos hacia el correo y más:</string>
 
-</resources>
+
+    <!-- device messages for updates -->
+    <string name="update_1_20">Mejorada la compatibilidad con el correo electrónico en la versión 1.20:\n\n📫 Leer listas de correo\n📭 Leer correos HTML\n📪 Buen manejo de las direcciones de soporte\n📫 Arregladas muchas molestias grandes y pequeñas\n\nLea nuestra nueva publicación sobre estos primeros pasos hacia el correo y más:</string>
+    </resources>

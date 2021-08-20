@@ -40,10 +40,10 @@
     <string name="profile">Perfil</string>
     <string name="main_menu">Menú principal</string>
     <string name="start_chat">Inciar chat</string>
-    <string name="show_full_message">Mostrar mensaxe completa...</string>
-    <string name="show_full_message_in_browser">Mostrar mensaxe completa no navegador...</string>
+    <string name="show_full_message">Mostrar mensaxe completa…</string>
+    <string name="show_full_message_in_browser">Mostrar mensaxe completa no navegador…</string>
     <!-- this is shown as placeholder when something is loading at some places -->
-    <string name="loading">Cargando...</string>
+    <string name="loading">Cargando…</string>
     <string name="hide">Ocultar</string>
     <string name="activate">Activar</string>
     <string name="load_remote_content">Cargar imaxes remotas</string>
@@ -55,15 +55,14 @@
     <string name="hide_password">Agochar contrasinal</string>
     <string name="not_now">Agora non</string>
     <string name="never">Nunca</string>
-    <string name="one_moment">Un momento...</string>
+    <string name="one_moment">Un momento…</string>
     <string name="done">Feito</string>
     <string name="undo">Desfacer</string>
     <string name="offline">Sen conexión</string>
-    <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in ios headers, the string should be as short as possible, though. -->
+    <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in iOS headers, the string should be as short as possible, though. -->
     <string name="next">Seguinte</string>
     <string name="error">Fallo</string>
     <string name="error_x">Fallo: %1$s</string>
-    <string name="error_no_network">Non hai conexión a rede.</string>
     <string name="no_app_to_handle_data">Non se atopa unha app para este tipo de datos.</string>
     <string name="no_browser_installed">Sen navegador instalado.</string>
     <string name="file_not_found">Non se atopou %1$s.</string>
@@ -120,7 +119,7 @@
     <string name="voice_message">Mensaxe de voz</string>
     <string name="forwarded">Reenviada</string>
     <string name="forwarded_message">Mensaxe reenviado</string>
-    <!-- %1$s will be replaced by the name or the email-address of the person who has forwarded the message -->
+    <!-- %1$s will be replaced by the name or the e-mail address of the person who has forwarded the message -->
     <string name="forwarded_by">Reenviado por %1$s</string>
     <string name="video">Vídeo</string>
     <string name="documents">Documentos</string>
@@ -204,6 +203,7 @@
     <string name="block">Bloquear</string>
     <string name="menu_block_contact">Bloquear contacto</string>
     <string name="menu_unblock_contact">Desbloquear contacto</string>
+    <string name="accept">Aceptar</string>
     <string name="menu_play">Reproducir</string>
     <string name="menu_pause">Pausar</string>
     <string name="menu_scroll_to_bottom">Moverse abaixo</string>
@@ -339,8 +339,10 @@
     <string name="chat_share_with_title">Compartir con</string>
     <string name="chat_input_placeholder">Mensaxe</string>
     <string name="chat_archived_label">Arquivado</string>
+    <string name="chat_request_label">Solicitar</string>
     <string name="chat_no_messages">Sen mensaxes.</string>
     <string name="chat_self_talk_subtitle">Mensaxes que me enviei a min mesma</string>
+    <string name="archive_empty_hint">Se arquivas os chats, aparecerán aquí.</string>
     <string name="saved_messages">Mensaxes gardadas</string>
     <string name="saved_messages_explain">• Reenvía aquí as mensaxes para un acceso rápido\n\n• Toma notas de texto ou voz\n\n• Anexa medios para gardalos</string>
     <!-- this "Saved" should match the "Saved" from "Saved messages" -->
@@ -414,6 +416,18 @@
     <string name="send_message">Enviar mensaxe</string>
 
 
+    <!-- Connectivity -->
+    <string name="connectivity">Conectividade</string>
+    <!-- Shown eg. in the title bar if the app is "Not connected"; as there is very few room, try to be as short as possible. -->
+    <string name="connectivity_not_connected">Non conectado</string>
+    <!-- Shown eg. in the title bar if the app is "Connecting"; as there is very few room, try to be as short as possible. Note that the three dots are a single character (…), not three (...) -->
+    <string name="connectivity_connecting">Conectando…</string>
+    <!-- Shown eg. in the title bar if the app is "Updating" (eg. getting new/old message, sync things); as there is very few room, try to be as short as possible. Note that the three dots are a single character (…), not three (...) -->
+    <string name="connectivity_updating">Actualizando…</string>
+    <!-- Shown eg. in the setting if the app is "Connected" -->
+    <string name="connectivity_connected">Conectado</string>
+
+
     <!-- welcome and login -->
     <string name="welcome_intro1_message">O sistema de conversa con maior audiencia no mundo. Libre e independente.</string>
     <string name="login_title">Conectar</string>
@@ -433,7 +447,7 @@
     <string name="login_smtp_port">Porto SMTP</string>
     <string name="login_smtp_security">Seguridade SMTP</string>
     <string name="login_auth_method">Método de autorización</string>
-    <!-- Translators: %1$s will be replaced by an email address -->
+    <!-- Translators: %1$s will be replaced by an e-mail address -->
     <string name="login_oauth2_checking_addr">Comprobando %1$s</string>
     <string name="login_info_oauth2_title">Continuar co axuste simplificado?</string>
     <string name="login_info_oauth2_text">O enderezo introducido soporta o axuste simplificado (OAuth 2.0).\n\nNo seguinte paso, permite a Delta Chat actuar como app de Conversa sobre Correo-e.\n\nNon hai servidores Delta Chat, os teus datos permanecen no dispositivo.</string>
@@ -445,7 +459,7 @@
     <string name="import_backup_title">Importar respaldo</string>
     <string name="import_backup_ask">Atopouse un respaldo en \"%1$s\".\n\nQueres importar e utilizar os seus datos e axustes?</string>
     <string name="import_backup_no_backup_found">Non se atoparon respaldos.\n\nCopia o respaldo a \"%1$s\" e inténtao outra vez. Alternativamente, podes premer \"Comezar conversa\" e continuar co proceso normal de axustes.</string>
-    <!-- Translators: %1$s will be replaced by the email address -->
+    <!-- Translators: %1$s will be replaced by the e-mail address -->
     <string name="login_error_cannot_login">Non se puido conectar como \"%1$s\". Comproba o enderezo de correo e o contrasinal.</string>
     <!-- Translators: %1$s will be replaced by the server name (eg. imap.somewhere.org) and %2$s will be replaced by the human-readable response from the server. this response may be a single word or some sentences and may or may not be localized. -->
     <string name="login_error_server_response">Resposta desde %1$s: %2$s\n\nAlgúns provedores poñen información adicional na túa caixa de entrada; podes comprobalo por exemplo na interface web. Consulta ao teu provedor ou amigos se atopas problemas.</string>
@@ -457,14 +471,14 @@
     <string name="delete_account">Eliminar conta</string>
     <string name="delete_account_ask">Estás seguro de que queres eliminar os datos da túa conta?</string>
     <string name="delete_account_explain_with_name">Todos os datos da conta \"%s\" neste dispositivo vanse eliminar, incluíndo os axustes de cifrado extremo-a-extremo, contactos, conversas, mensaxes e multimedia. Esta acción non ten volta.</string>
-    <string name="switching_account">Cambiando de conta...</string>
+    <string name="switching_account">Cambiando de conta…</string>
     <string name="try_connect_now">Intenta conectar agora</string>
     <!-- Translations: %1$s will be replaced by a more detailed error message -->
     <string name="configuration_failed_with_error">Fallou a configuración. Erro: %1$s</string>
 
     <!-- share and forward messages -->
     <!-- Translators: Title shown above a chat/contact list; the user selects the recipient of the messages he wants to forward to -->
-    <string name="forward_to">Reenviar a...</string>
+    <string name="forward_to">Reenviar a…</string>
     <string name="share_multiple_attachments">Enviar %1$d ficheiro á conversa seleccionada?\n\nOs ficheiros terán o mesmo tamaño que o orixinal, ex. as imaxes e vídeos non se recodifican.</string>
     <string name="share_multiple_attachments_multiple_chats">Enviar %1$d ficheiro(s) a %2$d conversas?\n\nOs ficheiros terán o mesmo tamaño, ex. imaxes e vídeos non se recodifican.</string>
     <string name="share_text_multiple_chats">Enviar este texto a %1$d conversas?\n\n\"%2$s\"</string>
@@ -678,7 +692,15 @@
     <string name="qrscan_contains_text">Texto escaneado no código QR:\n\n%1$s</string>
     <string name="qrscan_contains_url">URL escaneado no código QR:\n\n%1$s</string>
     <string name="qrscan_fingerprint_label">Pegada dactilar</string>
-    <string name="qrscan_x_verified_introduce_myself">%1$s verificado, presentándome...</string>
+    <string name="qrscan_x_verified_introduce_myself">%1$s verificado, presentándome…</string>
+    <string name="withdraw_verifycontact_explain">Este código QR permite que outras persoas contacten contigo.\n\nPodes desactivar o código QR aquí e reactivalo volvéndoo a escanear.</string>
+    <string name="withdraw_verifygroup_explain">Este código QR permite que outras persoas se unan ao grupo \"%1$s\".\n\nPodes desactivar aquí o código QR e reactivalo volvéndoo a escanear.</string>
+    <string name="withdraw_qr_code">Desactivar código QR</string>
+    <!-- "could" in the meaning of "possible at some point in the past, but no longer possible today" -->
+    <string name="revive_verifycontact_explain">Este código QR podía ser escaneado por outras persoas para contactar contigo.\n\nO código QR non está activo neste dispositio.</string>
+    <!-- "could" in the meaning of "possible at some point in the past, but no longer possible today" -->
+    <string name="revive_verifygroup_explain">O código QR podía ser escaneado por outras persoas para unirse ao grupo \"%1$s\".\n\nO código QR non está activo neste dispositivo.</string>
+    <string name="revive_qr_code">Activar código QR</string>
     <string name="qrshow_title">Código QR de convite</string>
     <string name="qrshow_x_joining">%1$s uneuse.</string>
     <string name="qrshow_x_verified">%1$s verificado.</string>
@@ -843,6 +865,8 @@
     <string name="pref_reliable_service_explain">Require unha notificación permanente</string>
     <string name="perm_enable_bg_reminder_title">Toca aquí para recibir mensaxes mentras Delta Chat está en segundo plano.</string>
     <string name="perm_enable_bg_already_done">Xa permitiches que Delta Chat reciba mensaxes en segundo plano\n\nSe aínda así non recibes as mensaxes, por favor comproba os axustes do sistema.</string>
-    <string name="update_1_20">Na versión 1.20 melloramos a compatibilidade co email:\n\n📫 Ler listaxes de correo\n📭 Ler emails HTML\n📪 Mellor xestión dos enderezo de axuda\n📫 Arranxamos problemas e problemiños molestos\n\nLe o artigo no blog acerca destas melloras e máis:</string>
 
-</resources>
+
+    <!-- device messages for updates -->
+    <string name="update_1_20">Na versión 1.20 melloramos a compatibilidade co email:\n\n📫 Ler listaxes de correo\n📭 Ler emails HTML\n📪 Mellor xestión dos enderezo de axuda\n📫 Arranxamos problemas e problemiños molestos\n\nLe o artigo no blog acerca destas melloras e máis:</string>
+    </resources>

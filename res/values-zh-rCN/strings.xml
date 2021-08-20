@@ -59,11 +59,10 @@
     <string name="done">已完成</string>
     <string name="undo">撤销</string>
     <string name="offline">离线</string>
-    <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in ios headers, the string should be as short as possible, though. -->
+    <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in iOS headers, the string should be as short as possible, though. -->
     <string name="next">下一步</string>
     <string name="error">错误</string>
     <string name="error_x">错误： %1$s</string>
-    <string name="error_no_network">网络不可用。</string>
     <string name="no_app_to_handle_data">无法找到用于处理此类数据的应用程序。</string>
     <string name="no_browser_installed">没有安装浏览器。</string>
     <string name="file_not_found">无法找到 %1$s。</string>
@@ -114,7 +113,7 @@
     <string name="voice_message">语音消息</string>
     <string name="forwarded">转发了</string>
     <string name="forwarded_message">转发的消息</string>
-    <!-- %1$s will be replaced by the name or the email-address of the person who has forwarded the message -->
+    <!-- %1$s will be replaced by the name or the e-mail address of the person who has forwarded the message -->
     <string name="forwarded_by">转发人 %1$s</string>
     <string name="video">视频</string>
     <string name="documents">文档</string>
@@ -198,6 +197,7 @@
     <string name="block">屏蔽</string>
     <string name="menu_block_contact">屏蔽联系人</string>
     <string name="menu_unblock_contact">取消屏蔽联系人</string>
+    <string name="accept">接受</string>
     <string name="menu_play">播放</string>
     <string name="menu_pause">暂停</string>
     <string name="menu_scroll_to_bottom">滚动至底部</string>
@@ -327,8 +327,10 @@
     <string name="chat_share_with_title">分享给</string>
     <string name="chat_input_placeholder">输入消息…</string>
     <string name="chat_archived_label">已归档</string>
+    <string name="chat_request_label">请求</string>
     <string name="chat_no_messages">没有消息。</string>
     <string name="chat_self_talk_subtitle">发给自己的消息</string>
+    <string name="archive_empty_hint">被您归档的聊天将显示于此。</string>
     <string name="saved_messages">保存的消息</string>
     <string name="saved_messages_explain">• 转发消息于此以便于访问\n\n• 做笔记或语音备忘录\n\n• 附加媒体以保存它们</string>
     <!-- this "Saved" should match the "Saved" from "Saved messages" -->
@@ -402,6 +404,18 @@
     <string name="send_message">发送消息</string>
 
 
+    <!-- Connectivity -->
+    <string name="connectivity">连接性</string>
+    <!-- Shown eg. in the title bar if the app is "Not connected"; as there is very few room, try to be as short as possible. -->
+    <string name="connectivity_not_connected">未连接</string>
+    <!-- Shown eg. in the title bar if the app is "Connecting"; as there is very few room, try to be as short as possible. Note that the three dots are a single character (…), not three (...) -->
+    <string name="connectivity_connecting">连接中…</string>
+    <!-- Shown eg. in the title bar if the app is "Updating" (eg. getting new/old message, sync things); as there is very few room, try to be as short as possible. Note that the three dots are a single character (…), not three (...) -->
+    <string name="connectivity_updating">更新中…</string>
+    <!-- Shown eg. in the setting if the app is "Connected" -->
+    <string name="connectivity_connected">已连接</string>
+
+
     <!-- welcome and login -->
     <string name="welcome_intro1_message">本通讯软件有着世界上最广泛的受众。自由且自主。</string>
     <string name="login_title">登录</string>
@@ -421,7 +435,7 @@
     <string name="login_smtp_port">SMTP 端口</string>
     <string name="login_smtp_security">SMTP 安全类型</string>
     <string name="login_auth_method">认证方法</string>
-    <!-- Translators: %1$s will be replaced by an email address -->
+    <!-- Translators: %1$s will be replaced by an e-mail address -->
     <string name="login_oauth2_checking_addr">检查 %1$s 中</string>
     <string name="login_info_oauth2_title">使用简化设置继续？</string>
     <string name="login_info_oauth2_text">输入的电子邮件地址支持简化设置（OAuth 2.0）。\n\n在下一步中，请允许 Delta Chat 充当您的“通过电子邮件聊天”应用程序。\n\n不存在 Delta Chat 服务器，您的数据保留于您的设备！</string>
@@ -433,7 +447,7 @@
     <string name="import_backup_title">导入备份</string>
     <string name="import_backup_ask">在“%1$s”找到备份。\n\n您要导入并使用其中的全部数据与设置吗？</string>
     <string name="import_backup_no_backup_found">没有找到备份。\n\n将备份复制到“%1$s”然后再试一次。或者按“开始发送消息”来进行常规设置流程。</string>
-    <!-- Translators: %1$s will be replaced by the email address -->
+    <!-- Translators: %1$s will be replaced by the e-mail address -->
     <string name="login_error_cannot_login">无法作为“%1$s”登录。请检查电子邮件地址和密码是否正确。</string>
     <!-- Translators: %1$s will be replaced by the server name (eg. imap.somewhere.org) and %2$s will be replaced by the human-readable response from the server. this response may be a single word or some sentences and may or may not be localized. -->
     <string name="login_error_server_response">来自 %1$s 的回应： %2$s\n\n某些提供商会在您的收件箱中放置额外信息; 您可以在 Web 端等处等查看它。 如遇到问题，请咨询您的提供商或朋友。</string>
@@ -652,7 +666,7 @@
     <string name="systemmsg_chat_protection_enabled">已启用聊天保护</string>
 
     <!-- Some options as "Manage keys" or "Backup" may require the system PIN/Fingerprint/Gesture/Etc. to be entered in a system dialog. This hint is added to the system dialog, below a title as "Manage keys" or "Backup". -->
-    <string name="enter_system_secret_to_continue">请输入你系统定义的 secret 以继续</string>
+    <string name="enter_system_secret_to_continue">请输入您的系统密码以继续。</string>
 
     <!-- qr code stuff -->
     <string name="qr_code">二维码</string>
@@ -667,6 +681,14 @@
     <string name="qrscan_contains_url">已扫描到的二维码 URL：\n\n%1$s</string>
     <string name="qrscan_fingerprint_label">指纹</string>
     <string name="qrscan_x_verified_introduce_myself">%1$s 已验证， 自我介绍中…</string>
+    <string name="withdraw_verifycontact_explain">其他人可以扫描此二维码与您联系。\n\n您可以在此处停用二维码并通过再次扫描来重新激活它。</string>
+    <string name="withdraw_verifygroup_explain">其他人可以扫描此二维码加入群组 \"%1$s\".\n\n您可以在此处停用二维码并通过再次扫描来重新激活它。</string>
+    <string name="withdraw_qr_code">停用二维码</string>
+    <!-- "could" in the meaning of "possible at some point in the past, but no longer possible today" -->
+    <string name="revive_verifycontact_explain">其他人可能会扫描此二维码以与您联系。\n\n此二维码在此设备上不活动。</string>
+    <!-- "could" in the meaning of "possible at some point in the past, but no longer possible today" -->
+    <string name="revive_verifygroup_explain">其他人可扫描此二维码加入群组 \"%1$s\".\n\n此设备上的二维码未激活。</string>
+    <string name="revive_qr_code">激活二维码</string>
     <string name="qrshow_title">邀请二维码</string>
     <string name="qrshow_x_joining">%1$s 加入。</string>
     <string name="qrshow_x_verified">%1$s 已验证。</string>
@@ -831,6 +853,8 @@
     <string name="pref_reliable_service_explain">需要一个永久通知</string>
     <string name="perm_enable_bg_reminder_title">点击此处以在 Delta Chat 处于后台时接收消息。</string>
     <string name="perm_enable_bg_already_done">您已允许 Delta Chat 在后台接收消息。\n\n如果在后台时消息仍没到达，请检查系统设置。</string>
-    <string name="update_1_20">我们在 1.20 版本改进了电子邮件兼容性：\n\n📫 阅读邮件列表\n📭 阅读 HTML 邮件\n📪 很好地处理支持地址\n📫 修复了多处大大小小的错误\n\n详情请阅读我们新的博客文章：</string>
 
-</resources>
+
+    <!-- device messages for updates -->
+    <string name="update_1_20">我们在 1.20 版本改进了电子邮件兼容性：\n\n📫 阅读邮件列表\n📭 阅读 HTML 邮件\n📪 很好地处理支持地址\n📫 修复了多处大大小小的错误\n\n详情请阅读我们新的博客文章：</string>
+    </resources>

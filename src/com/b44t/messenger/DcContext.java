@@ -9,7 +9,6 @@ public class DcContext {
     public final static int DC_EVENT_INFO                        = 100;
     public final static int DC_EVENT_WARNING                     = 300;
     public final static int DC_EVENT_ERROR                       = 400;
-    public final static int DC_EVENT_ERROR_NETWORK               = 401;
     public final static int DC_EVENT_ERROR_SELF_NOT_IN_GROUP     = 410;
     public final static int DC_EVENT_MSGS_CHANGED                = 2000;
     public final static int DC_EVENT_INCOMING_MSG                = 2005;
@@ -26,6 +25,7 @@ public class DcContext {
     public final static int DC_EVENT_IMEX_FILE_WRITTEN           = 2052;
     public final static int DC_EVENT_SECUREJOIN_INVITER_PROGRESS = 2060;
     public final static int DC_EVENT_SECUREJOIN_JOINER_PROGRESS  = 2061;
+    public final static int DC_EVENT_CONNECTIVITY_CHANGED        = 2100;
 
     public final static int DC_IMEX_EXPORT_SELF_KEYS = 1;
     public final static int DC_IMEX_IMPORT_SELF_KEYS = 2;
@@ -52,6 +52,10 @@ public class DcContext {
     public final static int DC_QR_TEXT              = 330;
     public final static int DC_QR_URL               = 332;
     public final static int DC_QR_ERROR             = 400;
+    public final static int DC_QR_WITHDRAW_VERIFYCONTACT = 500;
+    public final static int DC_QR_WITHDRAW_VERIFYGROUP   = 502;
+    public final static int DC_QR_REVIVE_VERIFYCONTACT   = 510;
+    public final static int DC_QR_REVIVE_VERIFYGROUP     = 512;
 
     public final static int DC_LP_AUTH_OAUTH2          =     0x2;
     public final static int DC_LP_AUTH_NORMAL          =     0x4;
@@ -72,8 +76,18 @@ public class DcContext {
     public final static int DC_DECISION_BLOCK      = 1;
     public final static int DC_DECISION_NOT_NOW    = 2;
 
+    public final static int DC_CONNECTIVITY_NOT_CONNECTED = 1000;
+    public final static int DC_CONNECTIVITY_CONNECTING = 2000;
+    public final static int DC_CONNECTIVITY_WORKING = 3000;
+    public final static int DC_CONNECTIVITY_CONNECTED = 4000;
+
+    // when using DcAccounts, use DcAccounts.addAccount() instead
     public DcContext(String osName, String dbfile) {
         contextCPtr = createContextCPtr(osName, dbfile);
+    }
+
+    public DcContext(long contextCPtr) {
+        this.contextCPtr = contextCPtr;
     }
 
     public boolean isOk() {
@@ -93,17 +107,26 @@ public class DcContext {
         }
     }
 
+    public native int          getAccountId         ();
+
+    // when using DcAccounts, use DcAccounts.getEventEmitter() instead
     public DcEventEmitter      getEventEmitter      () { return new DcEventEmitter(getEventEmitterCPtr()); }
+
     public native void         setStockTranslation  (int stockId, String translation);
     public native String       getBlobdir           ();
     public native void         configure            ();
     public native void         stopOngoingProcess   ();
     public native int          isConfigured         ();
 
+    // when using DcAccounts, use DcAccounts.startIo() instead
     public native void         startIo              ();
+
+    // when using DcAccounts, use DcAccounts.stopIo() instead
     public native void         stopIo               ();
 
+    // when using DcAccounts, use DcAccounts.maybeNetwork() instead
     public native void         maybeNetwork         ();
+
     public native void         setConfig            (String key, String value);
     public void                setConfigInt         (String key, int value) { setConfig(key, Integer.toString(value)); }
     public native boolean      setConfigFromQr      (String qr);
@@ -112,6 +135,8 @@ public class DcContext {
     @Deprecated public String  getConfig            (String key, String def) { return getConfig(key); }
     @Deprecated public int     getConfigInt         (String key, int def) { return getConfigInt(key); }
     public native String       getInfo              ();
+    public native int          getConnectivity      ();
+    public native String       getConnectivityHtml  ();
     public native String       getOauth2Url         (String addr, String redirectUrl);
     public native String       initiateKeyTransfer  ();
     public native boolean      continueKeyTransfer  (int msg_id, String setup_code);
@@ -153,7 +178,8 @@ public class DcContext {
     public native boolean      setChatEphemeralTimer (int chat_id, int timer);
     public native boolean      setChatMuteDuration  (int chat_id, long duration);
     public native void         deleteChat           (int chat_id);
-    public native int          decideOnContactRequest(int msg_id, int decision);
+    public native void         blockChat            (int chat_id);
+    public native void         acceptChat           (int chat_id);
     public DcMsg               getMsg               (int msg_id) { return new DcMsg(getMsgCPtr(msg_id)); }
     public native String       getMsgInfo           (int id);
     public native String       getMsgHtml           (int msg_id);
@@ -175,6 +201,24 @@ public class DcContext {
     public DcArray             getLocations         (int chat_id, int contact_id, long timestamp_start, long timestamp_end) { return new DcArray(getLocationsCPtr(chat_id, contact_id, timestamp_start, timestamp_end)); }
     public native void         deleteAllLocations   ();
     public DcProvider          getProviderFromEmail (String email) { long cptr = getProviderFromEmailCPtr(email); return cptr!=0 ? new DcProvider(cptr) : null; }
+
+    public String getNameNAddr() {
+      String displayname = getConfig("displayname");
+      String addr = getConfig("addr");
+      String ret = "";
+
+      if (!displayname.isEmpty() && !addr.isEmpty()) {
+        ret = String.format("%s (%s)", displayname, addr);
+      } else if (!addr.isEmpty()) {
+        ret = addr;
+      }
+
+      if (ret.isEmpty() || isConfigured() == 0) {
+        ret += " (not configured)";
+      }
+
+      return ret.trim();
+    }
 
     /**
      * @return true if at least one chat has location streaming enabled

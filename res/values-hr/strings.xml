@@ -33,11 +33,10 @@
     <string name="not_now">Ne sada</string>
     <string name="never">Nikada</string>
     <string name="one_moment">Samo trenutak...</string>
-    <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in ios headers, the string should be as short as possible, though. -->
+    <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in iOS headers, the string should be as short as possible, though. -->
     <string name="next">Dalje</string>
     <string name="error">Greška</string>
     <string name="error_x">Greška: %1$s</string>
-    <string name="error_no_network">Mreža nije dostupna.</string>
     <string name="file_not_found">%1$s nije pronađeno.</string>
     <string name="copied_to_clipboard">Kopirano u međuspremnik.</string>
     <string name="contacts_headline">Kontakti</string>

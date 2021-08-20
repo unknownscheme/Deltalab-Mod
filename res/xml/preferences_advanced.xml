@@ -67,7 +67,7 @@
     <PreferenceCategory android:title="@string/pref_experimental_features">
 
         <Preference android:key="pref_webrtc_instance"
-            android:title="Video chat instance"
+            android:title="@string/videochat_instance"
             android:summary="@string/none"/>
 
     </PreferenceCategory>
