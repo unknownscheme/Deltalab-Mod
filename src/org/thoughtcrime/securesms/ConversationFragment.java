@@ -174,8 +174,10 @@ public class ConversationFragment extends MessageSelectorFragment
 
     private void setNoMessageText() {
         DcChat dcChat = getListAdapter().getChat();
-        if(dcChat.isGroup()){
-            if(dcContext.getChat((int) chatId).isUnpromoted()) {
+        if(dcChat.isMultiUser()){
+            if (dcChat.isBroadcast()) {
+              noMessageTextView.setText(R.string.chat_new_broadcast_hint);
+            } else if (dcChat.isUnpromoted()) {
                 noMessageTextView.setText(R.string.chat_new_group_hint);
             }
             else {
@@ -326,7 +328,7 @@ public class ConversationFragment extends MessageSelectorFragment
             menu.findItem(R.id.menu_context_share).setVisible(messageRecord.hasFile());
             boolean canReply = canReplyToMsg(messageRecord);
             menu.findItem(R.id.menu_context_reply).setVisible(chat.canSend() && canReply);
-            boolean showReplyPrivately = chat.isGroup() && !messageRecord.isOutgoing() && canReply;
+            boolean showReplyPrivately = chat.isMultiUser() && !messageRecord.isOutgoing() && canReply;
             menu.findItem(R.id.menu_context_reply_privately).setVisible(showReplyPrivately);
         }
 
@@ -893,7 +895,7 @@ public class ConversationFragment extends MessageSelectorFragment
                     actionMode.finish();
                     return true;
                 case R.id.menu_context_delete_message:
-                    handleDeleteMessages(getListAdapter().getSelectedItems());
+                    handleDeleteMessages((int) chatId, getListAdapter().getSelectedItems());
                     return true;
                 case R.id.menu_context_share:
                     DcHelper.openForViewOrShare(getContext(), getSelectedMessageRecord(getListAdapter().getSelectedItems()).getId(), Intent.ACTION_SEND);
