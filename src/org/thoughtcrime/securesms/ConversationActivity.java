@@ -86,6 +86,7 @@ import org.thoughtcrime.securesms.components.emoji.EmojiKeyboardProvider;
 import org.thoughtcrime.securesms.components.emoji.MediaKeyboard;
 import org.thoughtcrime.securesms.connect.DcEventCenter;
 import org.thoughtcrime.securesms.connect.DcHelper;
+import org.thoughtcrime.securesms.connect.DirectShareUtil;
 import org.thoughtcrime.securesms.database.AttachmentDatabase;
 import org.thoughtcrime.securesms.messagerequests.MessageRequestsBottomView;
 import org.thoughtcrime.securesms.mms.AttachmentManager;
@@ -223,8 +224,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   protected void onCreate(Bundle state, boolean ready) {
-    Log.w(TAG, "onCreate()");
-
     final Context context = getApplicationContext();
     this.dcContext = DcHelper.getContext(context);
 
@@ -277,10 +276,8 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   @Override
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
-    Log.w(TAG, "onNewIntent()");
-    
+
     if (isFinishing()) {
-      Log.w(TAG, "Activity is finishing...");
       return;
     }
 
@@ -353,7 +350,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onConfigurationChanged(Configuration newConfig) {
-    Log.w(TAG, "onConfigurationChanged(" + newConfig.orientation + ")");
+    Log.i(TAG, "onConfigurationChanged(" + newConfig.orientation + ")");
     super.onConfigurationChanged(newConfig);
     composeText.setTransport(sendButton.getSelectedTransport());
     quickAttachmentDrawer.onConfigurationChanged();
@@ -373,7 +370,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onActivityResult(final int reqCode, int resultCode, Intent data) {
-    Log.w(TAG, "onActivityResult called: " + reqCode + ", " + resultCode + " , " + data);
     super.onActivityResult(reqCode, resultCode, data);
 
     if ((data == null && reqCode != TAKE_PHOTO && reqCode != RECORD_VIDEO && reqCode != SMS_DEFAULT) ||
@@ -518,13 +514,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
       Log.e(TAG, "cannot set up in-chat-search: ", e);
     }
 
-    if (!dcChat.canSend()) {
-      MenuItem attachItem =  menu.findItem(R.id.menu_add_attachment);
-      if (attachItem!=null) {
-        attachItem.setVisible(false);
-      }
-    }
-
     super.onPrepareOptionsMenu(menu);
     return true;
   }
@@ -533,12 +522,10 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   public boolean onOptionsItemSelected(MenuItem item) {
     super.onOptionsItemSelected(item);
     switch (item.getItemId()) {
-      case R.id.menu_add_attachment:        handleAddAttachment();             return true;
       case R.id.menu_leave:                 handleLeaveGroup();                return true;
       case R.id.menu_archive_chat:          handleArchiveChat();               return true;
       case R.id.menu_delete_chat:           handleDeleteChat();                return true;
       case R.id.menu_mute_notifications:    handleMuteNotifications();         return true;
-      case R.id.menu_profile:               handleProfile();                   return true;
       case R.id.menu_show_map:              handleShowMap();                   return true;
       case R.id.menu_search_up:             handleMenuSearchNext(false);       return true;
       case R.id.menu_search_down:           handleMenuSearchNext(true);        return true;
@@ -552,7 +539,6 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
 
   @Override
   public void onBackPressed() {
-    Log.w(TAG, "onBackPressed()");
     if (container.isInputOpen()){
       container.hideCurrentInput(composeText);
     } else {
@@ -668,6 +654,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
         .setMessage(getResources().getQuantityString(R.plurals.ask_delete_chat, 1, 1))
         .setPositiveButton(R.string.delete, (dialog, which) -> {
           dcContext.deleteChat(chatId);
+          DirectShareUtil.clearShortcut(this, chatId);
           finish();
         })
         .setNegativeButton(R.string.cancel, null)
@@ -682,7 +669,7 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void handleSecurityChange(boolean isSecureText, boolean isDefaultSms) {
-    Log.w(TAG, "handleSecurityChange(" + isSecureText + ", " + isDefaultSms + ")");
+    Log.i(TAG, "handleSecurityChange(" + isSecureText + ", " + isDefaultSms + ")");
     if (isSecurityInitialized && isSecureText == this.isSecureText && isDefaultSms == this.isDefaultSms) {
       return;
     }
@@ -968,13 +955,17 @@ public class ConversationActivity extends PassphraseRequiredActionBarActivity
   }
 
   private void setComposePanelVisibility() {
-    composePanel.setVisibility(dcChat.canSend() ? View.VISIBLE : View.GONE);
+    if (dcChat.canSend()) {
+      composePanel.setVisibility(View.VISIBLE);
+    } else {
+      composePanel.setVisibility(View.GONE);
+      hideSoftKeyboard();
+    }
   }
 
   //////// Helper Methods
 
   private void addAttachment(int type) {
-    Log.w("ComposeMessageActivity", "Selected: " + type);
     switch (type) {
     case AttachmentTypeSelector.ADD_GALLERY:
       AttachmentManager.selectGallery(this, PICK_GALLERY); break;

@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.preference.PreferenceManager;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentActivity;
 
 import com.b44t.messenger.DcAccounts;
 import com.b44t.messenger.DcContext;
@@ -15,12 +15,12 @@ import org.thoughtcrime.securesms.ApplicationContext;
 import org.thoughtcrime.securesms.ConversationListActivity;
 import org.thoughtcrime.securesms.R;
 import org.thoughtcrime.securesms.WelcomeActivity;
+import org.thoughtcrime.securesms.accounts.AccountSelectionListFragment;
 import org.thoughtcrime.securesms.notifications.NotificationCenter;
 import org.thoughtcrime.securesms.util.task.ProgressDialogAsyncTask;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 public class AccountManager {
 
@@ -34,6 +34,7 @@ public class AccountManager {
         appContext.notificationCenter = new NotificationCenter(context);
         appContext.eventCenter = new DcEventCenter(context);
         DcHelper.setStockTranslations(context);
+        DirectShareUtil.resetAllShortcuts(appContext);
     }
 
 
@@ -83,9 +84,10 @@ public class AccountManager {
 
     // add accounts
 
-    public void beginAccountCreation(Context context) {
-        DcHelper.getAccounts(context).addAccount();
+    public int beginAccountCreation(Context context) {
+        int id = DcHelper.getAccounts(context).addAccount();
         resetDcContext(context);
+        return id;
     }
 
     public boolean canRollbackAccountCreation(Context context) {
@@ -100,138 +102,36 @@ public class AccountManager {
           accounts.removeAccount(selectedAccount.getAccountId());
         }
 
-        new SwitchAccountAsyncTask(activity, R.string.switching_account, accounts.getSelectedAccount().getAccountId(), null).execute();
+        switchAccountAndStartActivity(activity, accounts.getSelectedAccount().getAccountId(), null);
     }
 
-
-    // helper class for switching accounts gracefully
-
-    private static class SwitchAccountAsyncTask extends ProgressDialogAsyncTask<Void, Void, Void> {
-        private final WeakReference<Activity> activityWeakReference;
-        private final int destAccountId; // 0 creates a new account
-        private final @Nullable String qrAccount;
-
-        public SwitchAccountAsyncTask(Activity activity, int title, int destAccountId, @Nullable String qrAccount) {
-            super(activity, null, activity.getString(title));
-            this.activityWeakReference = new WeakReference<>(activity);
-            this.destAccountId = destAccountId;
-            this.qrAccount = qrAccount;
-        }
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Activity activity = activityWeakReference.get();
-            if (activity!=null) {
-                if (destAccountId==0) {
-                    AccountManager.getInstance().beginAccountCreation(activity);
-                } else {
-                    AccountManager.getInstance().switchAccount(activity, destAccountId);
-                }
-            }
-            return null;
+    public void switchAccountAndStartActivity(Activity activity, int destAccountId, @Nullable String qrAccount) {
+        if (destAccountId==0) {
+            beginAccountCreation(activity);
+        } else {
+            switchAccount(activity, destAccountId);
         }
 
-        @Override
-        protected void onPostExecute(Void result) {
-            Activity activity = activityWeakReference.get();
-            if (activity!=null) {
-                activity.finishAffinity();
-                if (destAccountId==0) {
-                    Intent intent = new Intent(activity, WelcomeActivity.class);
-                    if (qrAccount!=null) {
-                        intent.putExtra(WelcomeActivity.QR_ACCOUNT_EXTRA, qrAccount);
-                    }
-                    activity.startActivity(intent);
-                } else {
-                    activity.startActivity(new Intent(activity.getApplicationContext(), ConversationListActivity.class));
-                }
+        activity.finishAffinity();
+        if (destAccountId==0) {
+            Intent intent = new Intent(activity, WelcomeActivity.class);
+            if (qrAccount!=null) {
+                intent.putExtra(WelcomeActivity.QR_ACCOUNT_EXTRA, qrAccount);
             }
+            activity.startActivity(intent);
+        } else {
+            activity.startActivity(new Intent(activity.getApplicationContext(), ConversationListActivity.class));
         }
     }
 
     // ui
 
     public void showSwitchAccountMenu(Activity activity) {
-        DcAccounts accounts = DcHelper.getAccounts(activity);
-        int[] accountIds = accounts.getAll();
-        int selectedAccountId = accounts.getSelectedAccount().getAccountId();
-
-        // build menu
-        int presel = 0;
-        ArrayList<String> menu = new ArrayList<>();
-        for (int i = 0; i < accountIds.length; i++) {
-            DcContext context = accounts.getAccount(accountIds[i]);
-            if (accountIds[i] == selectedAccountId) {
-                presel = i;
-            }
-            menu.add(context.getNameNAddr());
-        }
-
-        int addAccount = menu.size();
-        menu.add(activity.getString(R.string.add_account));
-
-        // show dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity)
-                .setTitle(R.string.switch_account)
-                .setNegativeButton(R.string.cancel, null)
-                .setSingleChoiceItems(menu.toArray(new String[0]), presel, (dialog, which) -> {
-                    dialog.dismiss();
-                    if (which==addAccount) {
-                        new SwitchAccountAsyncTask(activity, R.string.one_moment, 0, null).execute();
-                    } else { // switch account
-                        if (accountIds[which] != selectedAccountId) {
-                            new SwitchAccountAsyncTask(activity, R.string.switching_account, accountIds[which], null).execute();
-                        }
-                    }
-                });
-        if (accountIds.length > 1) {
-            builder.setNeutralButton(R.string.delete_account, (dialog, which) -> {
-                showDeleteAccountMenu(activity);
-            });
-        }
-        builder.show();
-    }
-
-    private void showDeleteAccountMenu(Activity activity) {
-        DcAccounts accounts = DcHelper.getAccounts(activity);
-        int[] accountIds = accounts.getAll();
-        int selectedAccountId = accounts.getSelectedAccount().getAccountId();
-
-        ArrayList<String> menu = new ArrayList<>();
-        for (int accountId : accountIds) {
-            menu.add(accounts.getAccount(accountId).getNameNAddr());
-        }
-        int[] selection = {-1};
-        new AlertDialog.Builder(activity)
-                .setTitle(R.string.delete_account)
-                .setSingleChoiceItems(menu.toArray(new String[0]), -1, (dialog, which) -> selection[0] = which)
-                .setNegativeButton(R.string.cancel, (dialog, which) -> showSwitchAccountMenu(activity))
-                .setPositiveButton(R.string.ok, (dialog, which) -> {
-                    if (selection[0] >= 0 && selection[0] < accountIds.length) {
-                        int accountId = accountIds[selection[0]];
-                        if (accountId == selectedAccountId) {
-                            new AlertDialog.Builder(activity)
-                                    .setMessage("To delete the currently active account, switch to another account first.")
-                                    .setPositiveButton(R.string.ok, null)
-                                    .show();
-                        } else {
-                            new AlertDialog.Builder(activity)
-                                    .setTitle(accounts.getAccount(accountId).getNameNAddr())
-                                    .setMessage(R.string.forget_login_confirmation_desktop)
-                                    .setNegativeButton(R.string.cancel, (dialog2, which2) -> showSwitchAccountMenu(activity))
-                                    .setPositiveButton(R.string.ok, (dialog2, which2) -> {
-                                        accounts.removeAccount(accountId);
-                                        showSwitchAccountMenu(activity);
-                                    })
-                                    .show();
-                        }
-                    } else {
-                        showDeleteAccountMenu(activity);
-                    }
-                })
-                .show();
+        AccountSelectionListFragment dialog = new AccountSelectionListFragment();
+        dialog.show(((FragmentActivity) activity).getSupportFragmentManager(), null);
     }
 
     public void addAccountFromQr(Activity activity, String qr) {
-        new SwitchAccountAsyncTask(activity, R.string.one_moment, 0, qr).execute();
+        switchAccountAndStartActivity(activity, 0, qr);
     }
 }

@@ -28,6 +28,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'androidx.sharetarget:sharetarget:1.1.0'
     implementation 'androidx.webkit:webkit:1.4.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -118,6 +119,9 @@ android {
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "TEST_ADDR", buildConfigProperty("TEST_ADDR"))
+        buildConfigField("String", "TEST_MAIL_PW", buildConfigProperty("TEST_MAIL_PW"))
     }
 
     compileOptions {
@@ -215,4 +219,20 @@ android {
      lintOptions {
         abortOnError false
     }
+}
+
+String buildConfigProperty(String name) {
+    return "\"${propertyOrEmpty(name)}\""
+}
+
+String propertyOrEmpty(String name) {
+    Object p = findProperty(name)
+    if (p == null) return environmentVariable(name)
+    return (String) p
+}
+
+String environmentVariable(String name) {
+    String env = System.getenv(name)
+    if (env == null) return ""
+    return env
 }
