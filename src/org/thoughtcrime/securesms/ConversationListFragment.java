@@ -17,6 +17,7 @@
 package org.thoughtcrime.securesms;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -117,6 +118,7 @@ public class ConversationListFragment extends Fragment
     eventCenter.addObserver(DcContext.DC_EVENT_MSG_READ, this);
     eventCenter.addObserver(DcContext.DC_EVENT_MSG_READ, this);
     eventCenter.addObserver(DcContext.DC_EVENT_CONNECTIVITY_CHANGED, this);
+    eventCenter.addObserver(DcContext.DC_EVENT_SELFAVATAR_CHANGED, this);
   }
 
   @Override
@@ -594,7 +596,17 @@ public class ConversationListFragment extends Fragment
   @Override
   public void handleEvent(@NonNull DcEvent event) {
     if (event.getId() == DcContext.DC_EVENT_CONNECTIVITY_CHANGED) {
-      ((ConversationListActivity) getActivity()).refreshTitle();
+      Activity activity = getActivity();
+      if (activity != null) {
+        ((ConversationListActivity) activity).refreshTitle();
+      }
+
+    } else if (event.getId() == DcContext.DC_EVENT_SELFAVATAR_CHANGED) {
+      Activity activity = getActivity();
+      if (activity != null) {
+        ((ConversationListActivity) activity).refreshAvatar();
+      }
+
     } else {
       loadChatlistAsync();
     }

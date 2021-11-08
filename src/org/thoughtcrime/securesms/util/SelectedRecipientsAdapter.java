@@ -15,7 +15,10 @@ import com.b44t.messenger.DcContact;
 import com.b44t.messenger.DcContext;
 
 import org.thoughtcrime.securesms.R;
+import org.thoughtcrime.securesms.components.AvatarImageView;
+import org.thoughtcrime.securesms.components.emoji.EmojiTextView;
 import org.thoughtcrime.securesms.connect.DcHelper;
+import org.thoughtcrime.securesms.mms.GlideRequests;
 import org.thoughtcrime.securesms.recipients.Recipient;
 import org.thoughtcrime.securesms.util.guava.Optional;
 
@@ -33,22 +36,25 @@ public class SelectedRecipientsAdapter extends BaseAdapter {
   @Nullable private OnRecipientDeletedListener onRecipientDeletedListener;
   @NonNull  private List<RecipientWrapper>     recipients;
   @NonNull  private final DcContext            dcContext;
+  @NonNull  private final GlideRequests        glideRequests;
 
   public SelectedRecipientsAdapter(@NonNull Context context,
+                                   @NonNull  GlideRequests glideRequests,
                                    @NonNull Collection<Recipient> existingRecipients)
   {
-    this.context    = context;
-    this.dcContext  = DcHelper.getContext(context);
-    this.recipients = wrapExistingMembers(existingRecipients);
+    this.context       = context;
+    this.glideRequests = glideRequests;
+    this.dcContext     = DcHelper.getContext(context);
+    this.recipients    = wrapExistingMembers(existingRecipients);
   }
 
-  public void add(@NonNull Recipient recipient, boolean isPush) {
+  public void add(@NonNull Recipient recipient) {
     if (!find(recipient).isPresent()) {
       boolean isModifiable = true;
       if (recipient.getAddress().getDcContactId() == DC_CONTACT_ID_SELF) {
         isModifiable = false;
       }
-      RecipientWrapper wrapper = new RecipientWrapper(recipient, isModifiable, isPush);
+      RecipientWrapper wrapper = new RecipientWrapper(recipient, isModifiable);
       this.recipients.add(0, wrapper);
       notifyDataSetChanged();
     }
@@ -113,11 +119,14 @@ public class SelectedRecipientsAdapter extends BaseAdapter {
       dcContact = dcContext.getContact(p.getAddress().getDcContactId());
     }
 
-    TextView    name   = v.findViewById(R.id.name);
-    TextView    phone  = v.findViewById(R.id.phone);
-    ImageButton delete = v.findViewById(R.id.delete);
+    AvatarImageView avatar = v.findViewById(R.id.contact_photo_image);
+    EmojiTextView   name   = v.findViewById(R.id.name);
+    TextView        phone  = v.findViewById(R.id.phone);
+    ImageButton     delete = v.findViewById(R.id.delete);
 
+    avatar.setAvatar(glideRequests, p, false);
     name.setText(dcContact.getDisplayName());
+    name.setCompoundDrawablesWithIntrinsicBounds(0, 0, dcContact.isVerified()? R.drawable.ic_verified : 0, 0);
     phone.setText(dcContact.getAddr());
     delete.setVisibility(modifiable ? View.VISIBLE : View.GONE);
     delete.setColorFilter(DynamicTheme.isDarkTheme(context)? Color.WHITE : Color.BLACK);
@@ -137,7 +146,7 @@ public class SelectedRecipientsAdapter extends BaseAdapter {
       if (recipient.getAddress().getDcContactId() == DC_CONTACT_ID_SELF) {
         isModifiable = false;
       }
-      wrapperList.add(new RecipientWrapper(recipient, isModifiable, true));
+      wrapperList.add(new RecipientWrapper(recipient, isModifiable));
     }
     return wrapperList;
   }
@@ -153,15 +162,12 @@ public class SelectedRecipientsAdapter extends BaseAdapter {
   public static class RecipientWrapper {
     private final Recipient recipient;
     private final boolean   modifiable;
-    private final boolean   push;
 
     public RecipientWrapper(final @NonNull Recipient recipient,
-                            final boolean modifiable,
-                            final boolean push)
+                            final boolean modifiable)
     {
       this.recipient  = recipient;
       this.modifiable = modifiable;
-      this.push       = push;
     }
 
     public @NonNull Recipient getRecipient() {

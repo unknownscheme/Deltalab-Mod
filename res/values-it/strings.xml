@@ -5,7 +5,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Annulla</string>
     <string name="clear_search">Cancella Ricerca</string>
-    <string name="yes">Si</string>
+    <string name="yes">Sì</string>
     <string name="no">No</string>
     <string name="select">Seleziona</string>
     <string name="on">On</string>
@@ -172,6 +172,8 @@
     <string name="menu_new_contact">Nuovo Contatto</string>
     <string name="menu_new_chat">Nuova Chat</string>
     <string name="menu_new_group">Nuovo Gruppo</string>
+    <!-- "Subject" here must be the same wording as used in the e-mail context, so. eg. "Betreff" in german (the idea is to help people coming from the e-mail context) -->
+    <string name="new_group_or_subject">Nuovo Gruppo od Oggetto</string>
     <string name="menu_new_verified_group">Nuovo Gruppo Verificato</string>
     <!-- consider keeping the term "broadcast"; check how these lists are called eg. on whatsapp in the destination language -->
     <string name="broadcast_list">Lista Trasmissione</string>
@@ -214,10 +216,10 @@
     <string name="show_in_chat">Mostra in Chat</string>
     <string name="menu_share">Condividi</string>
     <!-- this is the action "to block sth." usually a mailing list or a contact. this is NOT "a large solid piece of hard material" :) -->
-    <string name="block">Bloccare</string>
+    <string name="block">Blocca</string>
     <string name="menu_block_contact">Blocca Contatto</string>
     <string name="menu_unblock_contact">Sblocca Contatto</string>
-    <string name="accept">Accettare</string>
+    <string name="accept">Accetta</string>
     <string name="menu_play">Riproduci</string>
     <string name="menu_pause">Pausa</string>
     <string name="menu_scroll_to_bottom">Scorri alla Fine</string>
@@ -350,7 +352,7 @@
         <item quantity="other">%d nuovi messaggi</item>
     </plurals>
     <string name="chat_no_messages_hint">Invia un messaggio a %1$s:\n\n• Non è necessario che anche %2$s usi Delta Chat.\n\n• L\'invio del primo messaggio può richiedere qualche istante e non essere crittografato. </string>
-    <string name="chat_new_broadcast_hint">In una lista trasmissione, gli altri riceveranno messaggi nelle loro chat private con te.\n\nI destinatari non saranno a conoscenza l\'uno dell\'altro.</string>
+    <string name="chat_new_broadcast_hint">In una lista trasmissione, gli altri riceveranno i messaggi nelle loro chat private con te.\n\nI destinatari non saranno a conoscenza l\'uno dell\'altro.</string>
     <string name="chat_new_group_hint">Invia il primo messaggio per permettere agli altri di rispondere nel gruppo\n\n• Non è necessario che tutti i membri usino Delta Chat.\n\n• L\'invio del primo messaggio può richiedere qualche istante.</string>
     <string name="chat_record_slide_to_cancel">Scorri per annullare</string>
     <string name="chat_record_explain">Tocca e mantieni per registrare un messaggio vocale, rilascia per inviare </string>
@@ -619,7 +621,7 @@
     <string name="pref_show_emails_accepted_contacts">Per i contatti accettati</string>
     <string name="pref_show_emails_all">Sì</string>
     <string name="pref_experimental_features">Funzionalità Sperimentali</string>
-    <string name="pref_on_demand_location_streaming">Trasmissione su Richiesta Posizione</string>
+    <string name="pref_on_demand_location_streaming">Trasmissione Posizione su Richiesta</string>
     <string name="pref_background_default">Sfondo predefinito</string>
     <string name="pref_background_default_color">Colore predefinito</string>
     <string name="pref_background_custom_image">Immagine personalizzata</string>
@@ -778,6 +780,10 @@
     <string name="qraccount_success_enter_name">Accesso completato—il tuo indirizzo email è %1$s\n\nSe vuoi, puoi inserire un nome e un\'immagine profilo che verranno mostrati a chi ti scrive.</string>
     <string name="qraccount_qr_code_cannot_be_used">Il codice QR scansionato non può essere usato per creare un nuovo account.</string>
     <string name="qraccount_use_on_new_install">Il codice QR scansionato serve a creare un nuovo account. Puoi scansionare il codice quando configuri una nuova installazione di Delta Chat.</string>
+    <!-- first placeholder will be replaced by name and address of the inviter, second placeholder will be replaced by the name of the inviter. -->
+    <string name="secure_join_started">%1$s ti ha invitato a unirti a questo gruppo.\n\nIn attesa del dispositivo di %2$s risponda…</string>
+    <!-- placeholder will be replaced by the name of the inviter. -->
+    <string name="secure_join_replies">%1$s ha risposto, in attesa di essere aggiunto al gruppo…</string>
     <string name="contact_verified">%1$s verificato.</string>
     <string name="contact_not_verified">Impossibile verificare %1$s</string>
     <!-- translators: "setup" is the "encryption setup" here, as in "Autocrypt Setup Message" -->
@@ -791,7 +797,7 @@
 
     <!-- notifications  -->
     <string name="notify_n_messages_in_m_chats">%1$d nuovi messaggi in %2$d chat</string>
-    <string name="notify_dismiss">Abbandona</string>
+    <string name="notify_dismiss">Ignora</string>
     <string name="notify_mark_read">Segna come Letto</string>
     <string name="notify_reply_button">Rispondi</string>
     <string name="notify_new_message">Nuovo messaggio</string>
@@ -934,5 +940,6 @@
     <string name="update_1_20">Compatibilità della posta elettronica migliorata nella versione 1.20:\n\n📫 Leggi le mailing lists\n📭 Leggi i messaggi HTML\n📪 Buona gestione degli indirizzi di assistenza\n📫 Risolti molti problemi maggiori e minori\n\nLeggi il nostro nuovo post sul blog su questi primi passi verso la posta e altro:</string>
     <string name="update_1_22">Cosa c\'è di nuovo nella 1.22?\n\n👋 Le richieste di chat ora compaiono come singole chat e possono essere esaminate in dettaglio prima di accettarle o bloccarle\n\n🗄️ L\'Archivio è ora facilmente accessibile dal menu principale - troverai lì anche le tue vecchie richieste\n\n📮📮📮 Multi-account migliorato: il cambio di account ora è più veloce e meno spesso bloccato da lunghi aggiornamenti\n\n🤔 Scopri cosa sta succedendo: i problemi di connessione ora sono mostrati nella barra del titolo, tocca per i dettagli\n\nDi più sul blog:</string>
     <string name="update_1_22_ios">Cosa c\'è di nuovo nella 1.22?\n\n👋 Le richieste di chat ora compaiono come singole chat e possono essere esaminate in dettaglio prima di accettarle o bloccarle\n\n🗄️ L\'archivio è ora facilmente accessibile dalle impostazioni - troverai anche le tue vecchie richieste\n\n📮📮📮 Multi-account aggiunto: cambia e gestisci gli account nelle impostazioni\n\n🤔 Scopri cosa sta succedendo: i problemi di connessione sono ora mostrati nella barra del titolo, tocca per i dettagli\n\nUlteriori informazioni sul blog:</string>
-
+    <string name="update_1_24_android">1.24 a colpo d\'occhio:\n\n• Salva tocchi: selezione dell\'account nell\'angolo in alto a sinistra dell\'elenco chat\n• Salva più tocchi: tocca a lungo l\'icona dell\'app per aprire direttamente le chat recenti\n• Salva traffico: scarica i grandi file in base alle proprie esigenze\n• Risparmiate nervosismo: unioni con codici QR più veloci e non bloccanti e nuove opzioni per i codici QR\n\nAltro su 👉</string>
+    <string name="update_1_24_ios">1.24 a colpo d\'occhio:\n\n• Avvia una ricerca in-chat dal profilo della chat\n• Salva traffico: scarica file di grandi dimensioni in base alle esigenze\n• Risparmia nervosismo: ci si unisce con codici QR più veloci e non bloccanti\n\nAltro su 👉</string>
 </resources>

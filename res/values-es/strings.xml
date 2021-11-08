@@ -172,6 +172,8 @@
     <string name="menu_new_contact">Nuevo contacto</string>
     <string name="menu_new_chat">Nuevo chat</string>
     <string name="menu_new_group">Nuevo grupo</string>
+    <!-- "Subject" here must be the same wording as used in the e-mail context, so. eg. "Betreff" in german (the idea is to help people coming from the e-mail context) -->
+    <string name="new_group_or_subject">Nuevo grupo o asunto</string>
     <string name="menu_new_verified_group">Nuevo grupo verificado</string>
     <!-- consider keeping the term "broadcast"; check how these lists are called eg. on whatsapp in the destination language -->
     <string name="broadcast_list">Lista de difusión</string>
@@ -778,6 +780,10 @@
     <string name="qraccount_success_enter_name">Ingreso satisfactorio—tu dirección de email es %1$s\n\nSi lo deseas, puedes ingresar un nombre y una imagen de perfil, que será mostrada a los usuarios que escribas.</string>
     <string name="qraccount_qr_code_cannot_be_used">El código QR escaneado no puede ser usado para configurar una nueva cuenta.</string>
     <string name="qraccount_use_on_new_install">El código QR escaneado esta configurando la nueva cuenta. Puedes escanear el código QR cuando estés preparando una nueva instalación de Delta Chat</string>
+    <!-- first placeholder will be replaced by name and address of the inviter, second placeholder will be replaced by the name of the inviter. -->
+    <string name="secure_join_started">%1$s te invitó a unirte a este grupo.\n\nEsperando que el dispositivo de %2$s responda…</string>
+    <!-- placeholder will be replaced by the name of the inviter. -->
+    <string name="secure_join_replies">%1$s respondió, esperando ser agregado al grupo…</string>
     <string name="contact_verified">%1$s verificado.</string>
     <string name="contact_not_verified">No se pudo verificar %1$s.</string>
     <!-- translators: "setup" is the "encryption setup" here, as in "Autocrypt Setup Message" -->
@@ -791,6 +797,7 @@
 
     <!-- notifications  -->
     <string name="notify_n_messages_in_m_chats">%1$d nuevos mensajes en %2$d chats</string>
+    <string name="notify_dismiss">Descartar</string>
     <string name="notify_mark_read">Marcar como leído</string>
     <string name="notify_reply_button">Responder</string>
     <string name="notify_new_message">Nuevo mensaje</string>
@@ -933,5 +940,6 @@
     <string name="update_1_20">Mejorada la compatibilidad con el correo electrónico en la versión 1.20:\n\n📫 Leer listas de correo\n📭 Leer correos HTML\n📪 Buen manejo de las direcciones de soporte\n📫 Arregladas muchas molestias grandes y pequeñas\n\nLea nuestra nueva publicación sobre estos primeros pasos hacia el correo y más:</string>
     <string name="update_1_22">¿Qué hay de nuevo en la versión 1.22?\n\n👋 Las solicitudes de contacto ahora aparecen como chats independientes y pueden ser inspeccionados en detalle antes de aceptar o bloquear\n\n🗄️ Los chats archivados ahora están accesibles desde el menú principal - también encontrarás tus solicitudes de contacto antiguas allí\n\n📮📮📮 Mejorado el soporte multi-cuentas: Cambiar de cuenta ahora es más rápido y menos frecuentemente bloqueado por actualizaciones prolongadas\n\n🤔 Sepa lo que está pasando: los problemas de conexión ahora se muestran en la barra de título, tóquela para obtener más detalles\n\nMás en el blog:</string>
     <string name="update_1_22_ios">¿Qué hay de nuevo en la versión 1.22?\n\n👋 Las solicitudes de contacto ahora aparecen como chats independientes y pueden ser inspeccionados en detalle antes de aceptar o bloquear\n\n🗄️ Los chats archivados ahora están accesibles desde los ajustes - también encontrarás tus solicitudes de contacto antiguas allí\n\n📮📮📮 Añadido soporte para cuentas múltiples: Cambia y administra cuentas en los ajustes\n\n🤔 Sepa lo que está pasando: los problemas de conexión ahora se muestran en la barra de título, tóquela para obtener más detalles\n\nMás en el blog:</string>
-
+    <string name="update_1_24_android">1.24 de forma resumida:\n\n• Ahorre toques: Selección de cuenta en la esquina superior izquierda de la lista de chats\n• Ahorre más toques: Mantenga presionado el ícono de la aplicación para abrir los chats recientes directamente\n• Ahorre tráfico: Descargue archivos grandes según sea necesario\n• Ahorre nervios: invitación de códigos QR más rápidas, sin bloqueo y nuevas opciones de códigos QR\n\nMás en 👉</string>
+    <string name="update_1_24_ios">1.24 de forma resumida:\n\n• Inicie una búsqueda en el chat desde el perfil del chat\n• Ahorre tráfico: Descargue archivos grandes según sea necesario\n• Ahorre nervios: invitación de códigos QR más rápidas y sin bloqueo\n\nMás en 👉</string>
 </resources>

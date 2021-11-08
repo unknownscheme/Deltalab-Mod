@@ -3,7 +3,7 @@
     <!-- common strings without special context -->
     <string name="app_name">Delta Chat</string>
     <string name="ok">Tamam</string>
-    <string name="cancel">Vazgeç</string>
+    <string name="cancel">İptal</string>
     <string name="clear_search">Aramayı Temizle</string>
     <string name="yes">Evet</string>
     <string name="no">Hayır</string>
@@ -22,7 +22,7 @@
     <string name="downloading">İndiriliyor…</string>
     <string name="open_attachment">İlişiği Aç</string>
     <string name="join">Katıl</string>
-    <string name="rejoin">Yeniden katıl</string>
+    <string name="rejoin">Yeniden Katıl</string>
     <string name="delete">Sil</string>
     <string name="info">Bilgi</string>
     <string name="update">Güncelleştir</string>
@@ -33,7 +33,7 @@
     <string name="forward">İlet</string>
     <string name="archive">Arşivle</string>
     <string name="unarchive">Arşivleme</string>
-    <string name="mute">Sessize al</string>
+    <string name="mute">Sessize Al</string>
     <string name="ephemeral_messages">Kaybolan İletiler</string>
     <string name="ephemeral_messages_hint">Bu ayarlar, Delta Chat\'i kullanan tüm sohbet üyelerine uygulanır. Ancak onlar iletileri kopyalayabilir, kaydedebilir ve iletebilir ya da diğer e-posta istemcilerini kullanabilir.</string>
     <string name="save">Kaydet</string>
@@ -59,7 +59,7 @@
     <string name="never">Hiçbir zaman</string>
     <string name="one_moment">Bir dakika…</string>
     <string name="done">Bitti</string>
-    <string name="undo">Geri al</string>
+    <string name="undo">Geri Al</string>
     <string name="offline">Çevrimdışı</string>
     <!-- Translators: used eg. for the next view, could also be "continue" or so. as used in iOS headers, the string should be as short as possible, though. -->
     <string name="next">Sonraki</string>
@@ -172,6 +172,8 @@
     <string name="menu_new_contact">Yeni Kişi</string>
     <string name="menu_new_chat">Yeni Sohbet</string>
     <string name="menu_new_group">Yeni Grup</string>
+    <!-- "Subject" here must be the same wording as used in the e-mail context, so. eg. "Betreff" in german (the idea is to help people coming from the e-mail context) -->
+    <string name="new_group_or_subject">Yeni Grup ya da Konu</string>
     <string name="menu_new_verified_group">Yeni Doğrulanan Grup</string>
     <!-- consider keeping the term "broadcast"; check how these lists are called eg. on whatsapp in the destination language -->
     <string name="broadcast_list">Yayın Listesi</string>
@@ -206,7 +208,7 @@
     <string name="menu_resend">İletiyi Yeniden Gönder</string>
     <string name="menu_reply">İletiye Yanıt Ver</string>
     <string name="menu_mute">Bildirimleri Sessize Al</string>
-    <string name="menu_unmute">Sesini aç</string>
+    <string name="menu_unmute">Sessize Alma</string>
     <string name="menu_export_attachment">İlişiği Dışa Aktar</string>
     <string name="menu_export_attachments">İlişikleri Dışa Aktar</string>
     <string name="menu_all_media">Tüm Ortamlar</string>
@@ -539,7 +541,7 @@
     <string name="blocked_empty_hint">Kişileri engellerseniz, burada gösterilecekler.</string>
     <string name="pref_profile_photo_remove_ask">Profil görseli kaldırılsın mı?</string>
     <string name="pref_password_and_account_settings">Parola ve Hesap</string>
-    <string name="pref_who_can_see_profile_explain">Diğer kullanıcılarla iletişim kurarken, profil görseliniz ve adınız iletilerinizin yanında gösterilir. Zaten gönderilen bilgiler silinemeyebilir ya da kaldırılamayabilir.</string>
+    <string name="pref_who_can_see_profile_explain">Diğer kullanıcılarla iletişim kurarken; profil görseliniz, adınız ve imzanız iletilerinizle birlikte gönderilecek.</string>
     <string name="pref_your_name">Adınız</string>
     <!-- Translators: The value entered here is visible only to recipients who DO NOT use Deltachat, so its not a "Status" but the last line in the E-Mail. -->
     <string name="pref_default_status_label">İmza Metni</string>
@@ -778,6 +780,10 @@
     <string name="qraccount_success_enter_name">Oturum açma başarılı—e-posta adresiniz %1$s\n\nİsterseniz şimdi yazdığınız insanlara görüntülenecek bir ad ve bir profil görseli girebilirsiniz.</string>
     <string name="qraccount_qr_code_cannot_be_used">Taranan QR kod yeni bir hesap ayarlamak için kullanılamıyor.</string>
     <string name="qraccount_use_on_new_install">Taranan QR kod yeni bir hesap ayarlamak içindir. QR kodu yeni bir Delta Chat kurulumunu ayarlarken tarayabilirsiniz.</string>
+    <!-- first placeholder will be replaced by name and address of the inviter, second placeholder will be replaced by the name of the inviter. -->
+    <string name="secure_join_started">%1$s sizi bu gruba katılmaya davet etti.\n\n%2$s kişisinin aygıtının yanıt vermesi bekleniyor…</string>
+    <!-- placeholder will be replaced by the name of the inviter. -->
+    <string name="secure_join_replies">%1$s yanıtladı; gruba eklenmesi bekleniyor…</string>
     <string name="contact_verified">%1$s doğrulandı.</string>
     <string name="contact_not_verified">%1$s doğrulanamıyor.</string>
     <!-- translators: "setup" is the "encryption setup" here, as in "Autocrypt Setup Message" -->
@@ -791,6 +797,7 @@
 
     <!-- notifications  -->
     <string name="notify_n_messages_in_m_chats">%2$d sohbette %1$d yeni ileti</string>
+    <string name="notify_dismiss">Kapat</string>
     <string name="notify_mark_read">Okundu İmi</string>
     <string name="notify_reply_button">Yanıtla</string>
     <string name="notify_new_message">Yeni ileti</string>
@@ -933,5 +940,6 @@
     <string name="update_1_20">1.20 sürümünde geliştirilen e-posta uyumluluğu:\n\n📫 Posta listelerini okuma\n📭 HTML postaları okuma\n📪 Destek adreslerini iyi işleme\n📫 Çoğu büyük ve küçük sorunlar düzeltildi\n\nPostaya yönelik bu ilk adımlar ve daha fazlası hakkındaki yeni blog gönderimizi okuyun:</string>
     <string name="update_1_22">1.22\'de ne yeni?\n\n👋 Sohbet İstekleri artık tekli sohbetler olarak açılır ve kabul etmeden ya da engellemeden önce ayrıntılı incelenebilir\n\n🗄️ Arşiv şimdi ana menüden kolayca erişilebilirdir - orada eski isteklerinizi de bulacaksınız\n\n📮📮📮 Çoklu hesap geliştirildi: Hesaplar arasında geçiş yapmak artık daha hızlı ve uzun güncelleştirmeler tarafından daha az engellenir\n\n🤔 Neler olduğunu bilin: Bağlantı sorunları artık başlık çubuğunda gösterilir, ayrıntılar için dokunun\n\nDaha fazlası blogda:</string>
     <string name="update_1_22_ios">1.22\'de ne yeni?\n\n👋 Sohbet İstekleri artık tekli sohbetler olarak açılır ve kabul etmeden ya da engellemeden önce ayrıntılı incelenebilir\n\n🗄️ Arşiv şimdi ana menüden kolayca erişilebilirdir - orada eski isteklerinizi de bulacaksınız\n\n📮📮📮 Çoklu hesap geliştirildi: Hesaplar arasında geçiş yapmak artık daha hızlı ve uzun güncelleştirmeler tarafından daha az engellenir\n\n🤔 Neler olduğunu bilin: Bağlantı sorunları artık başlık çubuğunda gösterilir, ayrıntılar için dokunun\n\nDaha fazlası blogda:</string>
-
+    <string name="update_1_24_android">Bir bakışta 1.24:\n\n• Dokunmaları kaydedin: Sohbet listesinin sol üst köşesinden hesap seçimi\n• Daha fazla dokunmayı kaydedin: Son sohbetleri doğrudan açmak için uygulama simgesine uzun dokunun\n• Akışı kaydedin: Gerektiğinde büyük dosyaları indirin\n• Sinirleri kaydedin: Daha hızlı, engellenmeyen QR kod katılımları ve yeni QR kod seçenekleri\n\nDaha fazlası 👉</string>
+    <string name="update_1_24_ios">Bir bakışta 1.24:\n\n• Sohbetin profilinden bir sohbet içi arama başlatın\n• \n• Akışı kaydedin: Gerektiğinde büyük dosyaları indirin\n• Sinirleri kaydedin: Daha hızlı, engellenmeyen QR kod katılımları\n\nDaha fazlası 👉</string>
 </resources>

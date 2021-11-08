@@ -5,7 +5,6 @@
       <li><a href="#як-мені-знайти-людей-для-спілкування">Як мені знайти людей для спілкування?</a></li>
       <li><a href="#які-переваги-delta-chat-у-порівнянні-з-іншими-месенджерами">Які переваги Delta Chat у порівнянні з іншими месенджерами?</a></li>
       <li><a href="#які-повідомлення-відображаються-у-delta-chat">Які повідомлення відображаються у Delta Chat?</a></li>
-      <li><a href="#як-щодо-спаму">Як щодо спаму?</a></li>
       <li><a href="#чи-підтримує-delta-chat-вкладення-у-вигляді-фото-відео-тощо">Чи підтримує Delta Chat вкладення у вигляді фото, відео тощо?</a></li>
       <li><a href="#хто-бачить-моє-зображення-профілю">Хто бачить моє зображення профілю?</a></li>
       <li><a href="#чи-підтримує-delta-chat-html-листи">Чи підтримує Delta Chat HTML-листи?</a></li>
@@ -20,7 +19,7 @@
       <li><a href="#що-таке-перевірена-група-чому-це-експеримент">Що таке перевірена група? Чому це експеримент?</a></li>
       <li><a href="#я-випадково-себе-видалив">Я випадково себе видалив</a></li>
       <li><a href="#я-більше-не-хочу-отримувати-повідомлення-групи">Я більше не хочу отримувати повідомлення групи.</a></li>
-      <li><a href="#що-означають-подвійні-галочки-у-групових-повідомленнях-всі-прочитали-моє-повідомлення">Що означають подвійні галочки у групових повідомленнях? Всі прочитали моє повідомлення?</a></li>
+      <li><a href="#what-do-the-ticks-shown-beside-outgoing-messages-mean">What do the ticks shown beside outgoing messages mean?</a></li>
     </ul>
   </li>
   <li><a href="#encryption">Шифрування</a>
@@ -129,20 +128,6 @@
 
 <p>Інші повідомлення не відображаються автоматично, і можуть бути знайдені у пункті головного меню <strong>Запити контактів</strong>. За бажанням розмову може бути розпочато звідти.</p>
     
-      <h3 id="як-щодо-спаму">
-        
-        
-          Як щодо спаму? <a href="#як-щодо-спаму" class="anchor"></a>
-        
-        
-      </h3>
-
-<ul>
-  <li>Повідомлення в загальних папках зі спамом ігноруються, а їх адреси не вважаються відомими контактами.</li>
-  <li>Оскільки повідомлення від невідомих контактів не відображаються автоматично, то <strong>спаму немає</strong>.</li>
-  <li>Однак, якщо необхідно, ви можете <strong>заблокувати</strong> буди-який контакт.</li>
-</ul>
-    
       <h3 id="чи-підтримує-delta-chat-вкладення-у-вигляді-фото-відео-тощо">
         
         
@@ -168,7 +153,8 @@
     <p>Ви можете додати зображення профілю в ваших налаштуваннях. Якщо ви пишете комусь із ваших контактів чи додаєте їх через QR код, вони автоматично побачать ваше зображення профілю.</p>
   </li>
   <li>
-    <p>Контакти, які не використовують Delta Chat, бачать його як вкладення до повідомлення електронної пошти.</p>
+    <p>Contacts who don’t use Delta Chat do not see the profile picture
+(however, of course, they can install Delta Chat :)</p>
   </li>
   <li>
     <p>Із міркувань приватності, ніхто не бачить ваше зображення профілю доки ви їм не напишете.</p>
@@ -187,7 +173,7 @@
       </h3>
 
 <ul>
-  <li>Так. Якщо у вхідній електронній пошті відсутній текстовий формат «text/plain», ми перетворюємо HTML-листи у текстовий формат самостійно. Вихідні листи завжди використовують текстовий формат.</li>
+  <li>Yes. If needed, incoming messages get a “Show full message” button. Outgoing e-mails always use plain text.</li>
 </ul>
     
       <h3 id="чому-я-маю-вводити-пароль-до-моєї-електронної-пошти-у-delta-chat-чи-це-безпечно">
@@ -337,18 +323,22 @@
   </li>
 </ul>
     
-      <h3 id="що-означають-подвійні-галочки-у-групових-повідомленнях-всі-прочитали-моє-повідомлення">
+      <h3 id="what-do-the-ticks-shown-beside-outgoing-messages-mean">
         
         
-          Що означають подвійні галочки у групових повідомленнях? Всі прочитали моє повідомлення? <a href="#що-означають-подвійні-галочки-у-групових-повідомленнях-всі-прочитали-моє-повідомлення" class="anchor"></a>
+          What do the ticks shown beside outgoing messages mean? <a href="#what-do-the-ticks-shown-beside-outgoing-messages-mean" class="anchor"></a>
         
         
       </h3>
 
 <ul>
-  <li>Повідомлення відображає дів галочки після того як більше половини отримувачів побачили повідомлення на їх екрані.</li>
-  <li>Зверніть увагу, що деякі одержувачі могли відключити сповіщення про прочитання через причини-конфіденційності.</li>
-  <li>Якщо більше 50% відключили сповіщення про прочитання, подвійні галочки не будуть відображатися взагалі. За деталями дивіться <a href="https://delta.chat/en/2017-07-06-read-receipts-and-social-pressure">цей пост у блозі</a>.</li>
+  <li><strong>One tick</strong> means that the message was sent successfully to your provider.</li>
+  <li><strong>Two ticks</strong> mean that at least one recipient’s device
+reported back to having received the message.</li>
+  <li>Recipients may have disabled read-receipts,
+so even if you see only one tick, the message may have been read.</li>
+  <li>The other way round, two ticks do not automatically mean
+that a human has read or understood the message ;)</li>
 </ul>
     
       <h2 id="encryption">
@@ -696,17 +686,10 @@
       </h3>
 
 <ul>
-  <li>Sending and receiving messages takes a few seconds, typically. Sometimes
-there are cases where it takes longer but that is arguably true as well for
-any other messenger.</li>
-  <li>Instant chatting works fast if both parties are actively using the app. It’s
-sometimes slower if the app is running in the background.</li>
-  <li>Receiving messages then can take minutes because both Android and iOS often
-stop Delta Chat from running in the background, and only wake it up
-occasionally. This artificial delay is usually worse on iOS than on Android.</li>
-  <li>However, Android and iOS kill apps running in the background is a
-problem for many legitimate apps. For more information, see
-<a href="https://dontkillmyapp.com/">dontkillmyapp.com</a>.</li>
+  <li>Надсилання та отримання повідомлень зазвичай триває кілька секунд. Іноді трапляються випадки, коли це займає більше часу, але це, безперечно, справедливо і для будь-якого іншого месенджера.</li>
+  <li>Миттєвий чат працює швидко, якщо обидві сторони активно використовують додаток. Іноді це повільніше, якщо програма працює у фоновому режимі.</li>
+  <li>Отримання повідомлень тоді може зайняти хвилини, оскільки як Android, так і iOS часто припиняють роботу Delta Chat у фоновому режимі і лише час від часу прокидають його. Ця штучна затримка зазвичай гірша на iOS, ніж на Android.</li>
+  <li>Однак програми для Android та iOS вбивають програми, що працюють у фоновому режимі, є проблемою для багатьох законних програм. Для отримання додаткової інформації див. <a href="https://dontkillmyapp.com/">dontkillmyapp.com</a>.</li>
 </ul>
     
       <h3 id="чи-сумісний-delta-chat-із-protonmail--tutanota--criptext">

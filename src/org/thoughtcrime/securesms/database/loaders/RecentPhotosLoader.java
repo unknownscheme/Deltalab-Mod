@@ -5,7 +5,9 @@ import android.Manifest;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+
 import androidx.loader.content.CursorLoader;
 
 import org.thoughtcrime.securesms.permissions.Permissions;
@@ -22,6 +24,9 @@ public class RecentPhotosLoader extends CursorLoader {
       MediaStore.Images.ImageColumns.MIME_TYPE
   };
 
+  private static final String SELECTION  = Build.VERSION.SDK_INT > 28 ? MediaStore.Images.Media.IS_PENDING + " != 1"
+                                                                      : null;
+
   private final Context context;
 
   public RecentPhotosLoader(Context context) {
@@ -31,9 +36,9 @@ public class RecentPhotosLoader extends CursorLoader {
 
   @Override
   public Cursor loadInBackground() {
-    if (Permissions.hasAll(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+    if (Permissions.hasAll(context, Manifest.permission.READ_EXTERNAL_STORAGE)) {
       return context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                                PROJECTION, null, null,
+                                                PROJECTION, SELECTION, null,
                                                 MediaStore.Images.ImageColumns.DATE_MODIFIED + " DESC");
     } else {
       return null;

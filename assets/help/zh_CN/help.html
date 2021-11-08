@@ -5,7 +5,6 @@
       <li><a href="#如何找到可以聊天的人">如何找到可以聊天的人？</a></li>
       <li><a href="#与其他通信软件相比delta-chat-有哪些优势">与其他通信软件相比，Delta Chat 有哪些优势？</a></li>
       <li><a href="#哪些消息会在-delta-chat-中出现">哪些消息会在 Delta Chat 中出现？</a></li>
-      <li><a href="#垃圾信息呢">垃圾信息呢？</a></li>
       <li><a href="#delta-chat-支持图像视频和其他附件吗">Delta Chat 支持图像、视频和其他附件吗？</a></li>
       <li><a href="#谁会看见我的个人资料图片">谁会看见我的个人资料图片？</a></li>
       <li><a href="#delta-chat-支持-html-电子邮件吗">Delta Chat 支持 HTML 电子邮件吗？</a></li>
@@ -20,7 +19,7 @@
       <li><a href="#什么是已验证群组为什么它是实验性的">什么是已验证群组？为什么它是实验性的？</a></li>
       <li><a href="#我不小心删除了我自己">我不小心删除了我自己。</a></li>
       <li><a href="#我不想再收到某个群组中的消息了">我不想再收到某个群组中的消息了。</a></li>
-      <li><a href="#群组消息中的双对勾意味着什么每个人都都读我的消息了吗">群组消息中的双对勾意味着什么？每个人都都读我的消息了吗？</a></li>
+      <li><a href="#显示在发出消息旁边的对勾表示什么">显示在发出消息旁边的对勾表示什么？</a></li>
     </ul>
   </li>
   <li><a href="#encryption">加密</a>
@@ -125,20 +124,6 @@
 
 <p>其他消息不会自动出现，而是可以在<strong>联系人请求</strong>中找到。 如有需要，可以从那里开始聊天。</p>
     
-      <h3 id="垃圾信息呢">
-        
-        
-          垃圾信息呢？ <a href="#垃圾信息呢" class="anchor"></a>
-        
-        
-      </h3>
-
-<ul>
-  <li>普通垃圾邮件文件夹中的消息将被忽略，并且所包含的地址不会被视为已知联系人。</li>
-  <li>由于来自未知联系人的消息不会自动弹出，因此通常情况下<strong>不会出现垃圾信息</strong>。</li>
-  <li>不过，如有需要，您可以<strong>屏蔽</strong>任何联系人。</li>
-</ul>
-    
       <h3 id="delta-chat-支持图像视频和其他附件吗">
         
         
@@ -164,7 +149,8 @@
     <p>您可以在设置中添加个人资料图片。如果您给您的联系人发消息或者通过二维码添加他们，他们会自动看到您的个人资料图片。</p>
   </li>
   <li>
-    <p>不使用 Delta Chat 的联系人将其视为电子邮件附件。</p>
+    <p>Contacts who don’t use Delta Chat do not see the profile picture
+(however, of course, they can install Delta Chat :)</p>
   </li>
   <li>
     <p>出于隐私原因，在您向他们发送消息之前，没有人会看到您的个人资料照片。</p>
@@ -183,7 +169,7 @@
       </h3>
 
 <ul>
-  <li>是的。 如果收到的电子邮件缺少“纯文本”部分， HTML 电子邮件将在应用中被转换为纯文本。发出电子邮件始终使用纯文本。</li>
+  <li>Yes. If needed, incoming messages get a “Show full message” button. Outgoing e-mails always use plain text.</li>
 </ul>
     
       <h3 id="为什么我必须在-delta-chat-中输入我的电子邮件密码-这样安全吗">
@@ -333,18 +319,19 @@
   </li>
 </ul>
     
-      <h3 id="群组消息中的双对勾意味着什么每个人都都读我的消息了吗">
+      <h3 id="显示在发出消息旁边的对勾表示什么">
         
         
-          群组消息中的双对勾意味着什么？每个人都都读我的消息了吗？ <a href="#群组消息中的双对勾意味着什么每个人都都读我的消息了吗" class="anchor"></a>
+          显示在发出消息旁边的对勾表示什么？ <a href="#显示在发出消息旁边的对勾表示什么" class="anchor"></a>
         
         
       </h3>
 
 <ul>
-  <li>消息被一半以上的接收者在屏幕上看到后，会显示双对勾。</li>
-  <li>请注意，某些接收者可能出于隐私原因禁用了已读回执。</li>
-  <li>如果群组中超过 50％ 的人禁用了已读回执，那么双对勾将永远不会出现。更多信息，请参阅<a href="https://delta.chat/en/2017-07-06-read-receipts-and-social-pressure">这篇博文</a>。</li>
+  <li><strong>一个对勾</strong>表示消息已成功发送给您的服务提供商。</li>
+  <li><strong>两个对勾</strong>表示至少一个接收者的设备对接收该消息进行了回报。</li>
+  <li>接收者或许会禁用已读回执，所以即使您只看见了一个对勾，消息也可能已被阅读。</li>
+  <li>反过来说，两个对勾也不一定表示某个人类已阅读或理解了该消息 ;)</li>
 </ul>
     
       <h2 id="encryption">
@@ -693,17 +680,10 @@
       </h3>
 
 <ul>
-  <li>Sending and receiving messages takes a few seconds, typically. Sometimes
-there are cases where it takes longer but that is arguably true as well for
-any other messenger.</li>
-  <li>Instant chatting works fast if both parties are actively using the app. It’s
-sometimes slower if the app is running in the background.</li>
-  <li>Receiving messages then can take minutes because both Android and iOS often
-stop Delta Chat from running in the background, and only wake it up
-occasionally. This artificial delay is usually worse on iOS than on Android.</li>
-  <li>However, Android and iOS kill apps running in the background is a
-problem for many legitimate apps. For more information, see
-<a href="https://dontkillmyapp.com/">dontkillmyapp.com</a>.</li>
+  <li>通常情况下，发送和接收消息会花费数秒。收发消息有时会花费更长时间；但是对于其他的通信软件来说，这也是真的。</li>
+  <li>在双方都积极使用本应用时，即时聊天反应迅速；而当应用运行在后台时，有时就会很慢。</li>
+  <li>由于 Android 与 iOS 经常阻止 Delta Chat 在后台运行、偶尔才会唤醒它，接收消息可能要花费数分钟。iOS 上的这种人为延迟通常比 Android 上的更糟糕。</li>
+  <li>另外，对于很多正常应用来说，Android 和 iOS 杀掉后台应用是一个问题。更多信息，请参阅 <a href="https://dontkillmyapp.com/">dontkillmyapp.com</a>。</li>
 </ul>
     
       <h3 id="delta-chat-与-protonmail--tutanota--criptext-兼容吗">

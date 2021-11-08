@@ -172,6 +172,8 @@
     <string name="menu_new_contact">Nieuw contactpersoon</string>
     <string name="menu_new_chat">Nieuw gesprek</string>
     <string name="menu_new_group">Nieuwe groep</string>
+    <!-- "Subject" here must be the same wording as used in the e-mail context, so. eg. "Betreff" in german (the idea is to help people coming from the e-mail context) -->
+    <string name="new_group_or_subject">Nieuwe groep of onderwerp</string>
     <string name="menu_new_verified_group">Nieuwe goedgekeurde groep</string>
     <!-- consider keeping the term "broadcast"; check how these lists are called eg. on whatsapp in the destination language -->
     <string name="broadcast_list">Verzendlijst</string>
@@ -539,7 +541,7 @@
     <string name="blocked_empty_hint">Geblokkeerde contactpersonen worden hier getoond.</string>
     <string name="pref_profile_photo_remove_ask">Profielfoto verwijderen?</string>
     <string name="pref_password_and_account_settings">Wachtwoord en account</string>
-    <string name="pref_who_can_see_profile_explain">Je profielfoto en -naam worden getoond in gesprekken, naast je berichten. Reeds verstuurde informatie kan niet worden verwijderd of teruggehaald.</string>
+    <string name="pref_who_can_see_profile_explain">Je profielfoto, -naam en handtekening worden getoond in gesprekken, naast je berichten.</string>
     <string name="pref_your_name">Je naam</string>
     <!-- Translators: The value entered here is visible only to recipients who DO NOT use Deltachat, so its not a "Status" but the last line in the E-Mail. -->
     <string name="pref_default_status_label">Handtekeningtekst</string>
@@ -778,6 +780,10 @@
     <string name="qraccount_success_enter_name">Het inloggen is gelukt - je e-mailadres is ‘%1$s’.\n\nAls je wilt, kun je een naam en profielafbeelding opgeven die worden getoond aan de mensen waarmee je communiceert.</string>
     <string name="qraccount_qr_code_cannot_be_used">De gescande QR-code kan niet worden gebruikt om een nieuw account in te stellen.</string>
     <string name="qraccount_use_on_new_install">De gescande QR-code is voor het instellen van een nieuw account. Je kunt deze direct scannen na het (opnieuw) installeren van Delta Chat.</string>
+    <!-- first placeholder will be replaced by name and address of the inviter, second placeholder will be replaced by the name of the inviter. -->
+    <string name="secure_join_started">%1$s heeft je uitgenodigd voor deze groep.\n\nEr wordt gewacht op antwoord van het apparaat %2$s…</string>
+    <!-- placeholder will be replaced by the name of the inviter. -->
+    <string name="secure_join_replies">%1$s heefn geantwoord en wacht op toelating tot de groep…</string>
     <string name="contact_verified">%1$s is goedgekeurd.</string>
     <string name="contact_not_verified">Kan %1$s niet goedkeuren</string>
     <!-- translators: "setup" is the "encryption setup" here, as in "Autocrypt Setup Message" -->
@@ -934,5 +940,6 @@
     <string name="update_1_20">Verbeterde e-mailcompatibiliteit in versie 1.20:\n\n📫 Lees mailinglijsten\n📭 Lees html-e-mails\n📪 Betere afhandeling van ondersteuningsadressen\n📫 Vele grotere en kleinere problemen opgelost\n\nLees ons nieuwste blogartikel over deze eerste stappen naar e-mail en meer (Engels):</string>
     <string name="update_1_22">Wijzigingslog van versie 1.22:\n\n👋 Gespreksverzoeken worden nu getoond als losse gesprekken en kunnen worden bestudeerd alvorens de verzoeken te accepteren of af te wijzen\n\n🗄️ Het archief is voortaan te bereiken via het hoofdmenu, waar je tevens oude gespreksverzoeken vindt\n\n📮📮📮 Verbeterde ondersteuning voor meerdere accounts: het schakelen gaat voortaan veel sneller\n\n🤔 Blijf op de hoogte: verbindingsproblemen worden voortaan getoond in het meldingsgebied\n\nMeer informatie is te vinden op ons blog (Engels):</string>
     <string name="update_1_22_ios">Wijzigingslog van versie 1.22:\n\n👋 Gespreksverzoeken worden nu getoond als losse gesprekken en kunnen worden bestudeerd alvorens de verzoeken te accepteren of af te wijzen\n\n🗄️ Het archief is voortaan te bereiken via het hoofdmenu, waar je tevens oude gespreksverzoeken vindt\n\n📮📮📮 Verbeterde ondersteuning voor meerdere accounts: het schakelen gaat voortaan veel sneller\n\n🤔 Blijf op de hoogte: verbindingsproblemen worden voortaan getoond in het meldingsgebied\n\nMeer informatie is te vinden op ons blog (Engels):</string>
-
+    <string name="update_1_24_android">1.24 samengevat:\n\n• Bespaar moeite: accountkeuze zit nu links bovenaan de gesprekslijst\n• Bespaar nóg meer moeite: houd het app-pictogram lang ingedrukt om recente gesprekken direct te openen\n• Bespaar data: download grote bestanden alléén indien nodig\n• Bespaar frustratie: snellere, niet-in-de-weg-zittende QR-codes en nieuwe QR-code-opties\n\nMeer informatie is te vinden op 👉</string>
+    <string name="update_1_24_ios">1.24 samengevat:\n\n• Doorzoek gesprekken vanuit profielen\n• Bespaar data: download grote bestanden alléén indien nodig\n• Bespaar frustratie: snellere, niet-in-de-weg-zittende QR-codes en nieuwe QR-code-opties\n\nMeer informatie 👉</string>
 </resources>

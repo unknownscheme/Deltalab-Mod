@@ -10,7 +10,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:7.0.3'
     }
 }
 
@@ -89,22 +89,18 @@ dependencies {
 
 android {
     flavorDimensions "none"
-    compileSdkVersion 29
+    compileSdkVersion 30
     useLibrary 'org.apache.http.legacy'
 
-    dexOptions {
-        javaMaxHeapSize "4g"
-    }
-
     defaultConfig {
-        versionCode 613
-        versionName "1.23.0"
+        versionCode 616
+        versionName "1.24.2"
 
         applicationId "com.b44t.messenger"
         multiDexEnabled true
 
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
 
         vectorDrawables.useSupportLibrary = true
 
@@ -196,7 +192,9 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = outputFileName.replace(".apk", "-${variant.versionName}.apk")
+            outputFileName = outputFileName
+                .replace("deltachat-android", "deltachat")
+                .replace(".apk", "-${variant.versionName}.apk")
         }
     }
 
