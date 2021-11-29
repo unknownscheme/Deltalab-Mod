@@ -6,6 +6,7 @@ DeltaLab uses a [modified](https://github.com/adbenitez/deltalab-core) version o
 
 I'm making a modded version for a better user experience
 
+How reduce the apk size? : Use [apktool](https://github.com/iBotPeaches/Apktool) in builded apk, decompile and erase unnecesary files
 
 <img alt="Screenshot Chat List" src="docs/images/2020-08-chatlist.jpg" width="298" /> <img alt="Screenshot Chat View" src="docs/images/2020-08-chat.jpg" width="298" />
 
